@@ -1,6 +1,7 @@
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
 
 import theme from "@/styles/theme";
+import NavBar from "@/components/NavBar";
 
 function App({ Component, pageProps }) {
   return (
@@ -10,6 +11,7 @@ function App({ Component, pageProps }) {
           useSystemColorMode: true,
         }}
       >
+        <NavBar />
         <Component {...pageProps} />
       </ColorModeProvider>
     </ChakraProvider>
