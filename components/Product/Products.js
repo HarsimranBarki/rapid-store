@@ -1,26 +1,26 @@
-import { Box, Container, Grid } from "@chakra-ui/layout";
+import { Box, Container, Flex, Grid } from "@chakra-ui/layout";
 import React from "react";
 import Product from "./Product";
 import adidas from "public/adidas.jpg";
+import Link from "next/link";
 
 function Products({ merchant, categories, products }) {
   console.log(products);
   return (
     <Container maxW="container.xl">
-      {" "}
-      <Grid gridTemplateColumns="repeat(4,1fr)" gridGap={5} py={10}>
-        {products.map((data) => {
+      <Flex gridGap={5} py={10} justifyContent="flex-start">
+        {products.map((product) => {
           return (
             <Product
-              key={data.id}
-              name={data.name}
-              description={data.description}
-              price={data.price.formatted}
-              image={data.assets[0].url}
+              name={product.name}
+              description={product.description}
+              price={product.price.formatted_with_symbol}
+              image={product.assets[0].url}
+              permalink={product.permalink}
             />
           );
         })}
-      </Grid>
+      </Flex>
     </Container>
   );
 }
