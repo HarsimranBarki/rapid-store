@@ -1,10 +1,12 @@
-import { Box, Container, Flex, Heading, HStack, Text } from "@chakra-ui/layout";
-import React from "react";
+import { useCartState } from "@/context/cart";
+import { Box, Container, Flex, HStack } from "@chakra-ui/layout";
+import { chakra } from "@chakra-ui/system";
 import Link from "next/link";
-import { Button, ButtonGroup } from "@chakra-ui/button";
+import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 
 function NavBar() {
+  const { line_items, subtotal, total_unique_items } = useCartState();
   return (
     <>
       <Box
@@ -17,23 +19,40 @@ function NavBar() {
         <Container maxW="container.xl">
           <Flex py="4" justifyContent="space-between" alignItems="center">
             <Box>
-              <HStack spacing={5} cursor="pointer">
-                <Link href="/" passHref>
-                  <Text>Home</Text>
+              <HStack spacing={5}>
+                <Link href="/">
+                  <a>Home</a>
                 </Link>
-                <Link href="/" passHref>
-                  <Text>Shop</Text>
+                <Link href="/cart">
+                  <a>Shop</a>
                 </Link>
-                <Link href="/" passHref>
-                  <Text>Contact</Text>
+                <Link href="/">
+                  <a>Contact</a>
                 </Link>
-                <Link href="/" passHref>
-                  <Text>About</Text>
+                <Link href="/">
+                  <a>About</a>
                 </Link>
               </HStack>
             </Box>
+            <Link href="/cart" passHref>
+              <Box position="relative" cursor="pointer">
+                <chakra.span
+                  top={-1}
+                  right={-1}
+                  position="absolute"
+                  bg="teal.500"
+                  rounded="full"
+                  padding={1}
+                  fontSize="0.8rem"
+                  lineHeight="0.5"
+                  textColor="teal.100"
+                >
+                  {total_unique_items}
+                </chakra.span>
 
-            <FiShoppingCart />
+                <FiShoppingCart fontSize="1.5rem" />
+              </Box>
+            </Link>
           </Flex>
         </Container>
       </Box>
