@@ -7,7 +7,7 @@ import { chakra } from "@chakra-ui/system";
 
 function Hero() {
   return (
-    <Box bg="teal.50">
+    <Box bg="white">
       <Flex
         height="md"
         alignItems="center"
@@ -25,7 +25,7 @@ function Hero() {
               Rapid 1 Day Delivery
             </chakra.span>
           </Text>
-          <Button mt={10} variant="solid" colorScheme="teal">
+          <Button mt={10} variant="solid" colorScheme="blackAlpha">
             Shop Now
           </Button>
         </Box>

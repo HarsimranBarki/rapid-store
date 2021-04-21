@@ -68,7 +68,7 @@ function ProductButton({ name, id, quantity }) {
         <IconButton
           variant="outline"
           size="xs"
-          colorScheme="teal"
+          colorScheme="purple"
           aria-label="Add Item"
           onClick={() => incrementQuantity()}
           isDisabled={loading}
@@ -78,7 +78,7 @@ function ProductButton({ name, id, quantity }) {
         <IconButton
           variant="outline"
           size="xs"
-          colorScheme="teal"
+          colorScheme="purple"
           onClick={() => decrementQuantity()}
           aria-label="Remove Item"
           isDisabled={loading}

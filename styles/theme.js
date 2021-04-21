@@ -13,7 +13,7 @@ const breakpoints = createBreakpoints({
 import { mode } from "@chakra-ui/theme-tools";
 const theme = extendTheme({
   colors: {
-    black: "#16161D",
+    black: "#000000",
   },
   fonts: {
     heading: "Playfair Display, serif",

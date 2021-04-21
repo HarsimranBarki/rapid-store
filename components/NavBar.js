@@ -3,7 +3,7 @@ import { Box, Container, Flex, HStack } from "@chakra-ui/layout";
 import { chakra } from "@chakra-ui/system";
 import Link from "next/link";
 import React from "react";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 
 function NavBar() {
   const { line_items, subtotal, total_unique_items } = useCartState();
@@ -40,17 +40,17 @@ function NavBar() {
                   top={-1}
                   right={-1}
                   position="absolute"
-                  bg="teal.500"
+                  bg="purple.500"
                   rounded="full"
                   padding={1}
                   fontSize="0.8rem"
                   lineHeight="0.5"
-                  textColor="teal.100"
+                  textColor="purple.100"
                 >
                   {total_unique_items}
                 </chakra.span>
 
-                <FiShoppingCart fontSize="1.5rem" />
+                <FiShoppingBag fontSize="1.4rem" />
               </Box>
             </Link>
           </Flex>

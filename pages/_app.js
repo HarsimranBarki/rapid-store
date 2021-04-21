@@ -5,6 +5,28 @@ import NavBar from "@/components/NavBar";
 import Head from "next/head";
 import { css, Global } from "@emotion/react";
 import { CartProvider } from "@/context/cart";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { Router } from "next/router";
+import { CheckoutProvider } from "@/context/checkout";
+
+NProgress.configure({
+  showSpinner: true,
+  trickleRate: 0.1,
+  trickleSpeed: 300,
+});
+
+Router.events.on("routeChangeStart", () => {
+  NProgress.start();
+});
+
+Router.events.on("routeChangeComplete", () => {
+  NProgress.done();
+});
+
+Router.events.on("routeChangeError", () => {
+  NProgress.done();
+});
 
 const GlobalStyle = ({ children }) => {
   return (
@@ -40,9 +62,11 @@ function App({ Component, pageProps }) {
         }}
       >
         <CartProvider>
-          <GlobalStyle />
-          <NavBar />
-          <Component {...pageProps} />
+          <CheckoutProvider>
+            <GlobalStyle />
+            <NavBar />
+            <Component {...pageProps} />
+          </CheckoutProvider>
         </CartProvider>
       </ColorModeProvider>
     </ChakraProvider>

@@ -75,14 +75,14 @@ function Product({ id, name, description, price, image, permalink }) {
         p={5}
         justifyContent="space-between"
         alignItems="flex-end"
-        bg="teal.100"
+        bg="gray.200"
         rounded="lg"
       >
         <Box py={2}>
           <Text fontWeight="bold" textTransform="uppercase" fontSize="lg">
             {name}
           </Text>
-          <Box textColor="gray.600" fontWeight="medium" textColor="teal.700">
+          <Box textColor="gray.600" fontWeight="medium" textColor="gray.700">
             {parse(description)}
           </Box>
           <Text fontWeight="bold" fontSize="lg">
@@ -94,7 +94,7 @@ function Product({ id, name, description, price, image, permalink }) {
           onClick={() => addToCart(name, id, 1)}
           isLoading={loading}
           rounded="full"
-          colorScheme="teal"
+          colorScheme="purple"
         >
           Add
         </IconButton>
