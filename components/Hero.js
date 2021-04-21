@@ -25,7 +25,16 @@ function Hero() {
               Rapid 1 Day Delivery
             </chakra.span>
           </Text>
-          <Button mt={10} variant="solid" colorScheme="blackAlpha">
+          <Button
+            mt={10}
+            variant="solid"
+            bg="black"
+            textColor="white"
+            rounded="0"
+            _hover={{
+              bg: "#444",
+            }}
+          >
             Shop Now
           </Button>
         </Box>

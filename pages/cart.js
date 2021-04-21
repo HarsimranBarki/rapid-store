@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -21,27 +21,24 @@ import { useCartDispatch, useCartState } from "@/context/cart";
 import { useToast } from "@chakra-ui/toast";
 import Link from "next/link";
 import ProductButton from "@/components/Product/ProductButton";
+import { Spinner } from "@chakra-ui/spinner";
 
 function cart() {
   const { line_items, subtotal, total_unique_items } = useCartState();
   const { setCart } = useCartDispatch();
   const toast = useToast();
-  if (!line_items) {
-    return <Skeleton height="4rem"></Skeleton>;
-  }
-
   const isEmpty = line_items.length === 0;
 
   if (isEmpty) {
     return (
-      <Grid height="sm" placeContent="center">
+      <Container maxW="container.xl" py={10}>
         <Heading>Your Cart Is Empty</Heading>
         <Link href="/" passHref>
-          <Button variant="solid" colorScheme="teal" mt={5}>
+          <Button rounded="none" variant="solid" colorScheme="teal" mt={5}>
             GoHome
           </Button>
         </Link>
-      </Grid>
+      </Container>
     );
   }
 
@@ -54,13 +51,12 @@ function cart() {
           return (
             <Flex
               key={product.id}
-              bg="white"
-              rounded="lg"
-              boxShadow="base"
-              cursor="pointer"
+              border="1px solid "
+              borderColor="gray.200"
               _hover={{
                 boxShadow: "lg",
               }}
+              cursor="pointer"
               direction="column"
               h={300}
               w={300}
@@ -68,8 +64,6 @@ function cart() {
             >
               <Link href={`/product/`}>
                 <Box
-                  borderTopLeftRadius="lg"
-                  borderTopRightRadius="lg"
                   overflow="hidden"
                   position="relative"
                   height={200}
@@ -106,7 +100,13 @@ function cart() {
           );
         })}
       </Flex>
-      <Box bg="white" boxShadow="base" padding={5} rounded="lg" w="sm">
+      <Box
+        bg="white"
+        border="1px solid "
+        borderColor="gray.200"
+        padding={5}
+        w="sm"
+      >
         <Text fontWeight="bold" fontSize="xl">
           Order Summary
         </Text>

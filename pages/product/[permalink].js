@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import commerce from "@/lib/commerce";
 import Head from "next/head";
-import { Box, Flex, Heading, Text, toast } from "@chakra-ui/layout";
+import { Box, Divider, Flex, Heading, Text, toast } from "@chakra-ui/layout";
 import Image from "next/image";
 import HTMLReactParser from "html-react-parser";
 import { Button } from "@chakra-ui/button";
@@ -11,6 +11,7 @@ import VariantPicker from "@/components/VariantPicker";
 import RelatedProducts from "@/components/RelatedProducts";
 import { useCartDispatch } from "@/context/cart";
 import { useToast } from "@chakra-ui/toast";
+import { chakra } from "@chakra-ui/system";
 
 export async function getStaticProps({ params }) {
   const { permalink } = params;
@@ -43,6 +44,7 @@ export async function getStaticPaths() {
 function Product({ product }) {
   const toast = useToast();
   const { setCart } = useCartDispatch();
+  const [loading, setLoading] = useState(false);
   const {
     variant_groups: variantGroups,
     assets,
@@ -75,15 +77,16 @@ function Product({ product }) {
       [id]: value,
     });
 
-  const addToCart = () =>
+  const addToCart = () => {
+    setLoading(true);
     commerce.cart
       .add(product.id, 1, selectedVariants)
       .then(({ cart }) => {
         setCart(cart);
-
         return cart;
       })
       .then(({ subtotal }) => {
+        setLoading(false);
         toast({
           title: `${product.name} is now in your cart.`,
           description: ` Your subtotal is now ${subtotal.formatted_with_symbol}`,
@@ -93,6 +96,7 @@ function Product({ product }) {
         });
       })
       .catch(() => {
+        setLoading(false);
         toast({
           title: "Please try again",
           description: `Something happend try again`,
@@ -101,6 +105,7 @@ function Product({ product }) {
           isClosable: true,
         });
       });
+  };
 
   console.log(product);
   return (
@@ -108,20 +113,32 @@ function Product({ product }) {
       <Head>
         <title>{product.name}</title>
       </Head>
-      <Box py={10} bg="white">
+      <Box py={10} bg="white" width="container.xl" margin="auto">
         <Flex gridGap={10} justifyContent="center" py={10} width="100%">
-          <Box
-            position="relative"
-            height={400}
-            width={400}
-            rounded="lg"
-            overflow="hidden"
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            style={{ width: "100%" }}
           >
-            <Image src={product.media.source} layout="fill" objectFit="cover" />
-          </Box>
+            <Box
+              position="relative"
+              height="full"
+              width="full"
+              overflow="hidden"
+            >
+              <Image
+                src={product.media.source}
+                layout="fill"
+                objectFit="cover"
+              />
+            </Box>
+          </motion.div>
+
           <motion.div
             className="py-6 md:py-12 sticky top-0"
             initial={{ opacity: 0, y: 50 }}
+            style={{ width: "100%" }}
             animate={{
               opacity: 1,
               y: 0,
@@ -140,18 +157,24 @@ function Product({ product }) {
                 <Text fontWeight="bold" fontSize="4xl">
                   {product.name}
                 </Text>
+                <Text textColor="gray.500" mt={-1}>
+                  Avalaibility:{" "}
+                  <chakra.span textColor="black">In Stock</chakra.span>
+                </Text>
+                <Divider my={3} />
 
-                <Text fontWeight="bold" fontSize="3xl" mt={0}>
+                <Text fontWeight="bold" fontSize="2xl" textColor="black">
                   {product.price.formatted_with_symbol}
                 </Text>
 
+                <Divider my={3} />
                 <VariantPicker
                   variantGroups={variantGroups}
                   defaultValues={initialVariants}
                   onChange={handleVariantChange}
                 />
                 <Text
-                  fontWeight="light"
+                  fontWeight="normal"
                   textColor="gray.800"
                   fontSize="md"
                   ml={5}
@@ -162,15 +185,23 @@ function Product({ product }) {
               </Box>
 
               <Button
+                mt={3}
                 onClick={addToCart}
                 leftIcon={<FiShoppingBag />}
-                colorScheme="teal"
+                bg="black"
+                isLoading={loading}
+                textColor="white"
+                rounded="0"
+                _hover={{
+                  bg: "#444",
+                }}
               >
                 Add to Bag
               </Button>
             </Flex>
           </motion.div>
         </Flex>
+        <Divider my={5} />
         <Box bg="white">
           <RelatedProducts products={relatedProducts} />
         </Box>

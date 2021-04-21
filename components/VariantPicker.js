@@ -17,6 +17,8 @@ function VariantPicker({ variantGroups = [], defaultValues = {}, ...props }) {
 
             <Select
               id={group.id}
+              size="sm"
+              mt={2}
               defaultValue={defaultValues[group.id]}
               className="appearance-none leading-none block w-full py-1 pr-6 pl-2"
               {...props}

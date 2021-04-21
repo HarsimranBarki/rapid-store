@@ -68,7 +68,8 @@ function ProductButton({ name, id, quantity }) {
         <IconButton
           variant="outline"
           size="xs"
-          colorScheme="teal"
+          rounded="none"
+          colorScheme="gray"
           aria-label="Add Item"
           onClick={() => incrementQuantity()}
           isDisabled={loading}
@@ -77,15 +78,21 @@ function ProductButton({ name, id, quantity }) {
         <Text>{quantity}</Text>
         <IconButton
           variant="outline"
+          rounded="none"
           size="xs"
-          colorScheme="teal"
+          colorScheme="gray"
           onClick={() => decrementQuantity()}
           aria-label="Remove Item"
           isDisabled={loading}
           icon={<MinusIcon />}
         />
       </HStack>
-      <Button size="sm" colorScheme="red" onClick={() => handleRemoveItem()}>
+      <Button
+        rounded="none"
+        size="sm"
+        colorScheme="red"
+        onClick={() => handleRemoveItem()}
+      >
         Remove
       </Button>
     </Flex>

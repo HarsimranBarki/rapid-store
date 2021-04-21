@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import Products from "@/components/Product/Products";
 import React from "react";
 import commerce from "@/lib/commerce";
+import { SearchBar } from "@/components/SearchBar";
 
 export async function getStaticProps() {
   const merchant = await commerce.merchants.about();
@@ -21,6 +22,7 @@ const Index = ({ merchant, categories, products }) => {
   return (
     <>
       <Hero />
+      <SearchBar />
       <Products
         merchant={merchant}
         categories={categories}

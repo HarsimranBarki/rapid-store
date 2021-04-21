@@ -44,65 +44,39 @@ function Product({ id, name, description, price, image, permalink }) {
       });
   };
   return (
-    <Flex
-      key={id}
-      rounded="lg"
-      border="1px solid"
-      borderColor="gray.200"
-      p={5}
-      cursor="pointer"
-      _hover={{
-        boxShadow: "lg",
-      }}
-      direction="column"
-      h={360}
-      w={320}
-      justifyContent="space-between"
-    >
-      <Link href={`/product/${permalink}`}>
-        <Box
-          rounded="lg"
-          overflow="hidden"
-          position="relative"
-          height={200}
-          width={280}
-        >
+    <Link href={`/product/${permalink}`}>
+      <Box
+        key={id}
+        border="1px solid "
+        borderColor="gray.200"
+        _hover={{
+          boxShadow: "lg",
+        }}
+        cursor="pointer"
+        h="full"
+        w={300}
+        justifyContent="space-between"
+      >
+        <Box overflow="hidden" position="relative" height={300} width="full">
           <Image src={image} layout="fill" objectFit="cover" />
         </Box>
-      </Link>
-      <Flex
-        mt={3}
-        justifyContent="space-between"
-        alignItems="flex-end"
-        bg="gray.200"
-        p={5}
-        rounded="lg"
-      >
-        <Box py={2}>
-          <Text fontWeight="bold" textTransform="uppercase" fontSize="lg">
+
+        <Box bg="black" textColor="white" py={3} textAlign="center">
+          <Text
+            fontWeight="semibold"
+            textColor="gray.400"
+            textTransform="uppercase"
+            fontSize="md"
+          >
             {name}
           </Text>
-          {description ? (
-            <Box textColor="gray.600" fontWeight="medium" textColor="gray.700">
-              {parse(description)}
-            </Box>
-          ) : null}
 
-          <Text fontWeight="bold" fontSize="lg">
+          <Text fontWeight="bold" fontSize="md">
             {price}
           </Text>
         </Box>
-        <IconButton
-          icon={<AddIcon />}
-          onClick={() => addToCart(name, id, 1)}
-          isLoading={loading}
-          rounded="full"
-          colorScheme="teal"
-        >
-          Add
-        </IconButton>
-      </Flex>
-    </Flex>
+      </Box>
+    </Link>
   );
 }
 
