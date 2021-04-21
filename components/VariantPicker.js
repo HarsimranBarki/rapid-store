@@ -14,11 +14,19 @@ function VariantPicker({ variantGroups = [], defaultValues = {}, ...props }) {
             <Text fontSize="xl" fontWeight="bold">
               Choose Size
             </Text>
-            <ButtonGroup size="sm" colorScheme="gray" mt={2}>
+
+            <Select
+              id={group.id}
+              defaultValue={defaultValues[group.id]}
+              className="appearance-none leading-none block w-full py-1 pr-6 pl-2"
+              {...props}
+            >
               {options.map((option) => (
-                <Button rounded="full"> {option.name}</Button>
+                <option key={option.id} value={option.id}>
+                  {option.name}
+                </option>
               ))}
-            </ButtonGroup>
+            </Select>
           </Box>
         </>
       ))}

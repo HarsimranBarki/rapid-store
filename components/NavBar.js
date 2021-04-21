@@ -10,9 +10,10 @@ function NavBar() {
   return (
     <>
       <Box
-        bg="white"
+        bg="gray.800"
         position="fixed"
         width="full"
+        textColor="white"
         zIndex={10}
         boxShadow="base"
       >
@@ -40,12 +41,12 @@ function NavBar() {
                   top={-1}
                   right={-1}
                   position="absolute"
-                  bg="purple.500"
+                  bg="teal.500"
                   rounded="full"
                   padding={1}
                   fontSize="0.8rem"
                   lineHeight="0.5"
-                  textColor="purple.100"
+                  textColor="teal.100"
                 >
                   {total_unique_items}
                 </chakra.span>

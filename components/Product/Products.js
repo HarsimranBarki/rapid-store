@@ -1,8 +1,6 @@
-import { Box, Container, Flex, Grid } from "@chakra-ui/layout";
+import { Container, Flex } from "@chakra-ui/layout";
 import React from "react";
 import Product from "./Product";
-import adidas from "public/adidas.jpg";
-import Link from "next/link";
 
 function Products({ merchant, categories, products }) {
   console.log(products);
@@ -16,7 +14,7 @@ function Products({ merchant, categories, products }) {
                 id={product.id}
                 key={product.key}
                 name={product.name}
-                description={product.description}
+                description={product.seo.description}
                 price={product.price.formatted_with_symbol}
                 image={product.assets[0].url}
                 permalink={product.permalink}

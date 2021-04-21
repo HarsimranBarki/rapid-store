@@ -46,45 +46,48 @@ function Product({ id, name, description, price, image, permalink }) {
   return (
     <Flex
       key={id}
-      bg="white"
       rounded="lg"
-      boxShadow="base"
+      border="1px solid"
+      borderColor="gray.200"
+      p={5}
       cursor="pointer"
       _hover={{
         boxShadow: "lg",
       }}
       direction="column"
       h={360}
-      w={300}
+      w={320}
       justifyContent="space-between"
     >
       <Link href={`/product/${permalink}`}>
         <Box
-          borderTopLeftRadius="lg"
-          borderTopRightRadius="lg"
+          rounded="lg"
           overflow="hidden"
           position="relative"
           height={200}
-          width={300}
+          width={280}
         >
           <Image src={image} layout="fill" objectFit="cover" />
         </Box>
       </Link>
       <Flex
-        m={3}
-        p={5}
+        mt={3}
         justifyContent="space-between"
         alignItems="flex-end"
         bg="gray.200"
+        p={5}
         rounded="lg"
       >
         <Box py={2}>
           <Text fontWeight="bold" textTransform="uppercase" fontSize="lg">
             {name}
           </Text>
-          <Box textColor="gray.600" fontWeight="medium" textColor="gray.700">
-            {parse(description)}
-          </Box>
+          {description ? (
+            <Box textColor="gray.600" fontWeight="medium" textColor="gray.700">
+              {parse(description)}
+            </Box>
+          ) : null}
+
           <Text fontWeight="bold" fontSize="lg">
             {price}
           </Text>
@@ -94,7 +97,7 @@ function Product({ id, name, description, price, image, permalink }) {
           onClick={() => addToCart(name, id, 1)}
           isLoading={loading}
           rounded="full"
-          colorScheme="purple"
+          colorScheme="teal"
         >
           Add
         </IconButton>

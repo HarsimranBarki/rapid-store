@@ -37,7 +37,7 @@ function cart() {
       <Grid height="sm" placeContent="center">
         <Heading>Your Cart Is Empty</Heading>
         <Link href="/" passHref>
-          <Button variant="solid" colorScheme="purple" mt={5}>
+          <Button variant="solid" colorScheme="teal" mt={5}>
             GoHome
           </Button>
         </Link>
