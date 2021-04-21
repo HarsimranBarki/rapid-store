@@ -121,9 +121,9 @@ function Product({ product }) {
       <Box py={10} bg="white" width="container.xl" margin="auto">
         <Flex gridGap={10} justifyContent="center" py={10} width="100%">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 50 }}
             style={{ width: "100%" }}
           >
             <Box
@@ -142,16 +142,16 @@ function Product({ product }) {
 
           <motion.div
             className="py-6 md:py-12 sticky top-0"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, x: 50 }}
             style={{ width: "100%" }}
             animate={{
               opacity: 1,
-              y: 0,
+              x: 0,
               transition: {
                 delay: 0.25,
               },
             }}
-            exit={{ opacity: 0, y: -50 }}
+            exit={{ opacity: 0, x: -50 }}
           >
             <Flex
               direction="column"
