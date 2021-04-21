@@ -36,19 +36,21 @@ function NavBar() {
             </Box>
             <Link href="/cart" passHref>
               <Box position="relative" cursor="pointer">
-                <chakra.span
-                  top={-1}
-                  right={-1}
-                  position="absolute"
-                  bg="teal.500"
-                  rounded="full"
-                  padding={1}
-                  fontSize="0.8rem"
-                  lineHeight="0.5"
-                  textColor="teal.100"
-                >
-                  {total_unique_items}
-                </chakra.span>
+                {total_unique_items == 0 ? null : (
+                  <chakra.span
+                    top={-1}
+                    right={-1}
+                    position="absolute"
+                    bg="teal.500"
+                    rounded="full"
+                    padding={1}
+                    fontSize="0.8rem"
+                    lineHeight="0.5"
+                    textColor="teal.100"
+                  >
+                    {total_unique_items}
+                  </chakra.span>
+                )}
 
                 <FiShoppingBag fontSize="1.4rem" />
               </Box>

@@ -100,18 +100,10 @@ function cart() {
           );
         })}
       </Flex>
-      <Box
-        bg="white"
-        border="1px solid "
-        borderColor="gray.200"
-        padding={5}
-        w="sm"
-      >
-        <Text fontWeight="bold" fontSize="xl">
-          Order Summary
-        </Text>
-        <Divider />
-        <Text fontWeight="semibold">
+      <Box>
+        <Heading fontWeight="bold">Order Summary</Heading>
+        <Divider my={3} />
+        <Text fontWeight="semibold" fontSize="xl">
           Total Amount: {subtotal?.formatted_with_symbol}
         </Text>
         <Text fontWeight="semibold">Total Items: {total_unique_items} </Text>

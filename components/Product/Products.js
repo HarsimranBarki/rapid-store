@@ -3,7 +3,6 @@ import React from "react";
 import Product from "./Product";
 
 function Products({ merchant, categories, products }) {
-  console.log(products);
   return (
     <Box>
       {" "}

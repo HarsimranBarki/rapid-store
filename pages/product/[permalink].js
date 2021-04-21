@@ -9,9 +9,10 @@ import { motion } from "framer-motion";
 import { FiShoppingBag } from "react-icons/fi";
 import VariantPicker from "@/components/VariantPicker";
 import RelatedProducts from "@/components/RelatedProducts";
-import { useCartDispatch } from "@/context/cart";
+import { useCartDispatch, useCartState } from "@/context/cart";
 import { useToast } from "@chakra-ui/toast";
 import { chakra } from "@chakra-ui/system";
+import ProductButton from "@/components/Product/ProductButton";
 
 export async function getStaticProps({ params }) {
   const { permalink } = params;
@@ -45,6 +46,7 @@ function Product({ product }) {
   const toast = useToast();
   const { setCart } = useCartDispatch();
   const [loading, setLoading] = useState(false);
+
   const {
     variant_groups: variantGroups,
     assets,
@@ -107,7 +109,6 @@ function Product({ product }) {
       });
   };
 
-  console.log(product);
   return (
     <React.Fragment>
       <Head>

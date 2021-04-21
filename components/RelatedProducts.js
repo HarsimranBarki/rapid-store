@@ -4,7 +4,7 @@ import Product from "./Product/Product";
 
 function RelatedProducts({ products }) {
   if (!products || products.length === 0) return null;
-  console.log("as", products);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
