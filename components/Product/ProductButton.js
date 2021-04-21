@@ -5,6 +5,7 @@ import { useCartDispatch, useCartState } from "@/context/cart";
 import { useToast } from "@chakra-ui/toast";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import commerce from "@/lib/commerce";
+import { MdDelete } from "react-icons/md";
 
 function ProductButton({ name, id, quantity }) {
   const toast = useToast();
@@ -89,6 +90,7 @@ function ProductButton({ name, id, quantity }) {
       </HStack>
       <Button
         rounded="none"
+        leftIcon={<MdDelete />}
         size="sm"
         colorScheme="red"
         onClick={() => handleRemoveItem()}

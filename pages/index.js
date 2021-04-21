@@ -3,6 +3,7 @@ import Products from "@/components/Product/Products";
 import React from "react";
 import commerce from "@/lib/commerce";
 import { SearchBar } from "@/components/SearchBar";
+import { Divider } from "@chakra-ui/layout";
 
 export async function getStaticProps() {
   const merchant = await commerce.merchants.about();
@@ -22,7 +23,7 @@ const Index = ({ merchant, categories, products }) => {
   return (
     <>
       <Hero />
-      <SearchBar />
+      <Divider my={5} />
       <Products
         merchant={merchant}
         categories={categories}

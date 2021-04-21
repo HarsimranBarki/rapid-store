@@ -186,12 +186,13 @@ function Product({ product }) {
               </Box>
 
               <Button
-                mt={3}
+                mt={5}
+                w="xs"
                 onClick={addToCart}
                 leftIcon={<FiShoppingBag />}
                 bg="black"
                 isLoading={loading}
-                textColor="white"
+                textColor="gray.100"
                 rounded="0"
                 _hover={{
                   bg: "#444",
