@@ -110,7 +110,11 @@ function Product({ product }) {
   };
 
   return (
-    <React.Fragment>
+    <motion.div
+      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <Head>
         <title>{product.name}</title>
       </Head>
@@ -208,7 +212,7 @@ function Product({ product }) {
           <RelatedProducts products={relatedProducts} />
         </Box>
       </Box>
-    </React.Fragment>
+    </motion.div>
   );
 }
 

@@ -4,12 +4,14 @@ import React from "react";
 import Product from "./Product";
 
 function Products({ merchant, categories, products }) {
+  const easing = [0.6, -0.05, 0.01, 0.99];
   const container = {
     hidden: { y: -10 },
     show: {
       y: 0,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
+        ease: easing,
       },
     },
   };

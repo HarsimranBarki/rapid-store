@@ -12,6 +12,7 @@ import {
 import { Spinner } from "@chakra-ui/spinner";
 import { chakra } from "@chakra-ui/system";
 import { useToast } from "@chakra-ui/toast";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -38,93 +39,110 @@ function cart() {
     );
   }
 
+  const MotionFlex = motion(Flex);
   return (
-    <Container maxW="container.xl" py={10}>
-      <Flex justifyContent="space-between" alignItems="start">
-        <Box>
-          <Heading>Your Cart</Heading>
-          <Flex gridGap={5} py={10} justifyContent="flex-start">
-            {" "}
-            {line_items?.map((product) => {
-              return (
-                <Flex
-                  key={product.id}
-                  border="1px solid "
-                  borderColor="gray.200"
-                  _hover={{
-                    boxShadow: "lg",
-                  }}
-                  cursor="pointer"
-                  direction="column"
-                  h={300}
-                  w={300}
-                  justifyContent="space-between"
-                >
-                  <Link href={`/product/`}>
-                    <Box
-                      overflow="hidden"
-                      position="relative"
-                      height={200}
-                      width={300}
-                    >
-                      <Image
-                        src={product.media.source}
-                        layout="fill"
-                        objectFit="cover"
+    <motion.div
+      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <Container maxW="container.xl" py={10}>
+        <Flex justifyContent="space-between" alignItems="start">
+          <Box>
+            <Heading>Your Cart</Heading>
+            <Flex gridGap={5} py={10} justifyContent="flex-start">
+              {" "}
+              {line_items?.map((product) => {
+                return (
+                  <MotionFlex
+                    key={product.id}
+                    border="1px solid "
+                    whileHover={{
+                      scale: 1.02,
+                    }}
+                    borderColor="gray.200"
+                    _hover={{
+                      boxShadow: "lg",
+                    }}
+                    cursor="pointer"
+                    direction="column"
+                    h={300}
+                    w={300}
+                    justifyContent="space-between"
+                  >
+                    <Link href={`/product/${product.permalink}`}>
+                      <Box
+                        overflow="hidden"
+                        position="relative"
+                        height={200}
+                        width={300}
+                      >
+                        <Image
+                          src={product.media.source}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </Box>
+                    </Link>
+                    <Box px={5} py={5}>
+                      <Box py={2}>
+                        <Text
+                          fontWeight="bold"
+                          textTransform="uppercase"
+                          fontSize="lg"
+                        >
+                          {product.name}
+                        </Text>
+
+                        <Text fontWeight="bold" fontSize="lg">
+                          {product.price.formatted_with_symbol}
+                        </Text>
+                      </Box>
+                      <ProductButton
+                        name={product.name}
+                        id={product.id}
+                        quantity={product.quantity}
                       />
                     </Box>
-                  </Link>
-                  <Box px={5} py={5}>
-                    <Box py={2}>
-                      <Text
-                        fontWeight="bold"
-                        textTransform="uppercase"
-                        fontSize="lg"
-                      >
-                        {product.name}
-                      </Text>
-
-                      <Text fontWeight="bold" fontSize="lg">
-                        {product.price.formatted_with_symbol}
-                      </Text>
-                    </Box>
-                    <ProductButton
-                      name={product.name}
-                      id={product.id}
-                      quantity={product.quantity}
-                    />
-                  </Box>
-                </Flex>
-              );
-            })}
-          </Flex>
-        </Box>
-        <Box w="sm" border="1px solid" borderColor="gray.200" padding={5}>
-          <Heading fontWeight="bold">Order Summary</Heading>
-          <Divider my={3} />
-          <Flex
-            fontWeight="normal"
-            fontSize="md"
-            justifyContent="space-between"
+                  </MotionFlex>
+                );
+              })}
+            </Flex>
+          </Box>
+          <Box
+            w="sm"
+            border="1px solid"
+            borderColor="gray.200"
+            padding={5}
+            borderTop="5px solid "
+            borderTopColor="teal.600"
           >
-            <chakra.span textColor="gray.600" fontWeight="normal">
-              Total Amount:
-            </chakra.span>
-            <chakra.span>{subtotal.formatted_with_symbol}</chakra.span>
-          </Flex>
-          <Flex
-            fontWeight="normal"
-            fontSize="md"
-            justifyContent="space-between"
-          >
-            <chakra.span textColor="gray.600" fontWeight="normal">
-              Total Items:
-            </chakra.span>
-            <chakra.span>{total_unique_items}</chakra.span>
-          </Flex>
-        </Box>
-      </Flex>
-    </Container>
+            <Heading fontWeight="bold">Order Summary</Heading>
+            <Divider my={3} />
+            <Flex
+              fontWeight="normal"
+              fontSize="md"
+              justifyContent="space-between"
+            >
+              <chakra.span textColor="gray.600" fontWeight="normal">
+                Total Amount:
+              </chakra.span>
+              <chakra.span>{subtotal.formatted_with_symbol}</chakra.span>
+            </Flex>
+            <Flex
+              fontWeight="normal"
+              fontSize="md"
+              justifyContent="space-between"
+            >
+              <chakra.span textColor="gray.600" fontWeight="normal">
+                Total Items:
+              </chakra.span>
+              <chakra.span>{total_unique_items}</chakra.span>
+            </Flex>
+          </Box>
+        </Flex>
+      </Container>
+    </motion.div>
   );
 }
 

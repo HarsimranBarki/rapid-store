@@ -9,6 +9,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { Router } from "next/router";
 import { CheckoutProvider } from "@/context/checkout";
+import { AnimatePresence } from "framer-motion";
 
 NProgress.configure({
   showSpinner: true,
@@ -64,8 +65,10 @@ function App({ Component, pageProps }) {
         <CartProvider>
           <CheckoutProvider>
             <GlobalStyle />
-            <NavBar />
-            <Component {...pageProps} />
+            <AnimatePresence exitBeforeEnter>
+              <NavBar />
+              <Component {...pageProps} />
+            </AnimatePresence>
           </CheckoutProvider>
         </CartProvider>
       </ColorModeProvider>

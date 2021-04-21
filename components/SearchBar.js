@@ -16,6 +16,8 @@ export const SearchBar = ({ categories }) => {
         border="1px solid"
         borderColor="gray.200"
         justifyContent="space-between"
+        borderTop="5px solid "
+        borderTopColor="teal.600"
       >
         <Box>
           <Text fontWeight="light" fontSize="xl">
