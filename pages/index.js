@@ -24,6 +24,7 @@ const Index = ({ merchant, categories, products }) => {
     <>
       <Hero />
       <Divider my={5} />
+      <SearchBar categories={categories} />
       <Products
         merchant={merchant}
         categories={categories}

@@ -9,11 +9,13 @@ import commerce from "@/lib/commerce";
 import { useCartDispatch } from "@/context/cart";
 import { useToast } from "@chakra-ui/toast";
 import { AddIcon } from "@chakra-ui/icons";
+import { motion } from "framer-motion";
 
 function Product({ id, name, description, price, image, permalink }) {
   const { setCart } = useCartDispatch();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
+  const MotionBox = motion(Box);
   const addToCart = (name, productId, qty) => {
     setLoading(true);
     commerce.cart
@@ -45,10 +47,19 @@ function Product({ id, name, description, price, image, permalink }) {
   };
   return (
     <Link href={`/product/${permalink}`}>
-      <Box
+      <MotionBox
         key={id}
         border="1px solid "
         borderColor="gray.200"
+        initial={{
+          y: -10,
+        }}
+        animate={{
+          y: 0,
+        }}
+        whileHover={{
+          scale: 1.02,
+        }}
         _hover={{
           boxShadow: "lg",
         }}
@@ -75,7 +86,7 @@ function Product({ id, name, description, price, image, permalink }) {
             {price}
           </Text>
         </Box>
-      </Box>
+      </MotionBox>
     </Link>
   );
 }
