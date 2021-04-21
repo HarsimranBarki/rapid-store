@@ -10,7 +10,7 @@ function Products({ merchant, categories, products }) {
     show: {
       y: 0,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.2,
         ease: easing,
       },
     },
