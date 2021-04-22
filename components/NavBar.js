@@ -17,7 +17,7 @@ function NavBar() {
         zIndex={10}
         boxShadow="base"
       >
-        <Container maxW="80vw">
+        <Box maxW="80vw" margin="auto">
           <Flex py="4" justifyContent="space-between" alignItems="center">
             <Box>
               <HStack spacing={5}>
@@ -57,7 +57,7 @@ function NavBar() {
               </Box>
             </Link>
           </Flex>
-        </Container>
+        </Box>
       </Box>
       <Box height="3.5rem"></Box>
     </>

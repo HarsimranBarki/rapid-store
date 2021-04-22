@@ -53,10 +53,11 @@ export const CheckoutProvider = ({ children }) => {
       const payload = await commerce.checkout.generateToken(cartId, {
         type: "cart",
       });
-
+      console.log(payload);
       dispatch({ type: SET_CHECKOUT, payload });
     } catch (err) {
       // noop
+      console.log(err);
     }
   };
 

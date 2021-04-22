@@ -47,7 +47,7 @@ function cart() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <Container maxW="80vw" py={10}>
+      <Box maxW="80vw" py={10} margin="auto">
         <Flex justifyContent="space-between" alignItems="start">
           <Box>
             <Heading>Your Cart</Heading>
@@ -170,7 +170,7 @@ function cart() {
             </Link>
           </Box>
         </Flex>
-      </Container>
+      </Box>
     </motion.div>
   );
 }
