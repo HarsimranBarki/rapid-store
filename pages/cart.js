@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   Text,
+  VStack,
 } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { chakra } from "@chakra-ui/system";
@@ -110,7 +111,6 @@ function cart() {
             </Flex>
           </Box>
           <Box
-            w="sm"
             border="1px solid"
             borderColor="gray.200"
             padding={5}
@@ -119,26 +119,53 @@ function cart() {
           >
             <Heading fontWeight="bold">Order Summary</Heading>
             <Divider my={3} />
-            <Flex
-              fontWeight="normal"
-              fontSize="md"
-              justifyContent="space-between"
-            >
-              <chakra.span textColor="gray.600" fontWeight="normal">
-                Total Amount:
-              </chakra.span>
-              <chakra.span>{subtotal.formatted_with_symbol}</chakra.span>
-            </Flex>
-            <Flex
-              fontWeight="normal"
-              fontSize="md"
-              justifyContent="space-between"
-            >
-              <chakra.span textColor="gray.600" fontWeight="normal">
-                Total Items:
-              </chakra.span>
-              <chakra.span>{total_unique_items}</chakra.span>
-            </Flex>
+
+            <VStack spacing={3} justifyContent="space-between" width="100%">
+              {line_items?.map((product) => {
+                return (
+                  <Flex
+                    key={product.id}
+                    width="100%"
+                    fontWeight="normal"
+                    fontSize="md"
+                    justifyContent="space-between"
+                  >
+                    <chakra.span textColor="gray.600" fontWeight="normal">
+                      {product.name}
+                    </chakra.span>
+                    <chakra.span>
+                      {product.price.formatted} x {product.quantity}
+                    </chakra.span>
+                  </Flex>
+                );
+              })}
+
+              <Flex
+                fontWeight="normal"
+                width="100%"
+                fontSize="md"
+                justifyContent="space-between"
+              >
+                <chakra.span textColor="gray.600" fontWeight="normal">
+                  Total Items:
+                </chakra.span>
+                <chakra.span>{total_unique_items}</chakra.span>
+              </Flex>
+              <Flex
+                fontWeight="normal"
+                width="100%"
+                fontSize="md"
+                justifyContent="space-between"
+              >
+                <chakra.span textColor="gray.600" fontWeight="normal">
+                  Total Amount:
+                </chakra.span>
+                <chakra.span>{subtotal.formatted_with_symbol}</chakra.span>
+              </Flex>
+            </VStack>
+            <Button mt={5} colorScheme="teal" rounded="none" width="full">
+              Checkout
+            </Button>
           </Box>
         </Flex>
       </Container>
