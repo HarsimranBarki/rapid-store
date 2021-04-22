@@ -22,11 +22,12 @@
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.2.1",
+    "react-hook-form": "^7.2.3",
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.3",
     "redux": "^4.0.5",
-    "swr": "^0.5.5"
+    "swr": "^0.5.5",
+    "uuid": "^8.3.2"
   },
   "license": "MIT"
 }

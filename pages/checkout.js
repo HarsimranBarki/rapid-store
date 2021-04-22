@@ -10,6 +10,7 @@ import {
   Box,
   Divider,
   Flex,
+  Grid,
   Heading,
   HStack,
   Text,
@@ -24,31 +25,43 @@ import { useCartDispatch, useCartState } from "@/context/cart";
 import { chakra } from "@chakra-ui/system";
 import { Button } from "@chakra-ui/button";
 import Link from "next/link";
+import Shipping from "@/components/Shipping/Shipping";
+import { Spinner } from "@chakra-ui/spinner";
+import { useForm } from "react-hook-form";
+import Payment from "@/components/Shipping/Payment";
+import { AnimatePresence, motion } from "framer-motion";
+import OrderTotal from "@/components/Shipping/OrderTotal";
+import Success from "@/components/Shipping/Success";
+import { useRouter } from "next/router";
 
 function checkout() {
   const [countries, setCountries] = useState();
   const [subdivisions, setSubdivisions] = useState();
   const { line_items, subtotal, total_unique_items } = useCartState();
-  const { showCart } = useCartDispatch();
+  const { getCart } = useCartDispatch();
+  const [checkoutId, setCheckoutId] = useState();
+  const [shippigOptions, setShippingOptions] = useState();
+  const [checkoutToken, setCheckoutToken] = useState();
+  const [currentStep, setCurrentStep] = useState("shipping");
+  const [shippingData, setShippingData] = useState();
+  const router = useRouter();
 
-  const {
-    generateToken,
-    setCurrentStep,
-    nextStepFrom,
-    capture,
-    setProcessing,
-    setError: setCheckoutError,
-  } = useCheckoutDispatch();
-
+  if (currentStep == "success") {
+    router.push("/success");
+  }
   useEffect(() => {
-    fetchCountries();
+    getCartInfo();
+    fetchCountries(checkoutId);
+    fetchSubdivisions(checkoutId, "AF");
+    shippingOption(checkoutId, "AF");
   }, []);
 
-  const fetchSubdivisions = async (checkoutId, countryCode) => {
+  const fetchSubdivisions = async (countryCode) => {
     try {
       const { subdivisions } = await commerce.services.localeListSubdivisions(
         countryCode
       );
+      console.log(subdivisions);
       let res = Object.entries(subdivisions).map(reducer);
       setSubdivisions(res);
     } catch (err) {
@@ -59,9 +72,11 @@ function checkout() {
     value: code,
     label: name,
   });
-  const fetchCountries = async () => {
+  const fetchCountries = async (checkoutId) => {
     try {
-      const { countries } = await commerce.services.localeListCountries();
+      const { countries } = await commerce.services.localeListCountries(
+        checkoutId
+      );
       let res = Object.entries(countries).map(reducer);
       setCountries(res);
     } catch (err) {
@@ -69,159 +84,134 @@ function checkout() {
     }
   };
 
-  generateToken(showCart);
+  const shippingOption = async (checkoutId, country, region = null) => {
+    try {
+      const options = await commerce.checkout.getShippingOptions(checkoutId, {
+        country: "US",
+        region: "CA",
+      });
+      setShippingOptions(options);
+    } catch (err) {}
+  };
+
+  const setShippingValue = (checkoutId, country, region = null) => {
+    fetchSubdivisions(country);
+    shippingOption(checkoutId, country, region);
+  };
+
+  const getCartInfo = async () => {
+    const cart = await commerce.cart.retrieve();
+    const res = await commerce.checkout.generateToken(cart.id, {
+      type: "cart",
+    });
+    setCheckoutToken(res);
+    setCheckoutId(res.id);
+  };
+
+  if (!checkoutId) {
+    return (
+      <Grid height="sm" placeItems="center">
+        <Spinner />
+      </Grid>
+    );
+  }
 
   return (
     <Box width="80vw" mx="auto" my={10}>
       <Flex justifyContent="space-between">
         <Box>
-          {" "}
           <Heading textAlign="left">Checkout</Heading>
           <Box mt={10} w="xl">
             <Breadcrumb
               spacing="15px"
               fontSize="xl"
-              separator={<ArrowForwardIcon color="gray.500" />}
+              separator={<ChevronRightIcon color="gray.500" />}
             >
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">Shipping</BreadcrumbLink>
+                <BreadcrumbLink
+                  textColor={
+                    currentStep !== "shipping" ? "gray.400" : "gray.900"
+                  }
+                  href="#"
+                >
+                  Shipping
+                </BreadcrumbLink>
               </BreadcrumbItem>
 
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">Payment</BreadcrumbLink>
+                <BreadcrumbLink
+                  textColor={
+                    currentStep !== "payment" ? "gray.400" : "gray.900"
+                  }
+                  href="#"
+                >
+                  Payment
+                </BreadcrumbLink>
               </BreadcrumbItem>
             </Breadcrumb>
-            <VStack spacing={5} mt={5}>
-              <HStack spacing={5} width="100%">
-                <FormControl id="name">
-                  <Input
-                    type="text"
-                    placeholder="First Name"
-                    rounded="none"
-                    variant="outline"
-                  />
-                </FormControl>
-                <FormControl id="name">
-                  <Input
-                    type="text"
-                    placeholder="Last Name"
-                    rounded="none"
-                    variant="outline"
-                  />
-                </FormControl>
-              </HStack>
-              <FormControl id="name">
-                <Input
-                  type="text"
-                  placeholder="Address"
-                  rounded="none"
-                  variant="outline"
-                />
-              </FormControl>
-              <FormControl id="name">
-                <Input
-                  variant="outline"
-                  type="text"
-                  placeholder="City"
-                  rounded="none"
-                />
-              </FormControl>
-              <HStack spacing={5} width="100%">
-                {" "}
-                <FormControl id="name">
-                  <Select
-                    variant="outline"
-                    rounded="none"
-                    onChange={(e) => fetchSubdivisions("as", e.target.value)}
-                  >
-                    {countries?.map((data, index) => {
-                      return (
-                        <option key={index} value={data.value}>
-                          {data.label}
-                        </option>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-                <FormControl id="name">
-                  <Select variant="outline" rounded="none">
-                    {subdivisions?.map((data) => {
-                      return <option value={data.value}>{data.label}</option>;
-                    })}
-                  </Select>
-                </FormControl>
-                <FormControl id="zip">
-                  <Input
-                    variant="outline"
-                    type="text"
-                    placeholder="Zip"
-                    rounded="none"
-                  />
-                </FormControl>
-              </HStack>
-            </VStack>
           </Box>
+          <AnimatePresence>
+            {currentStep == "shipping" && (
+              <motion.div
+                initial={{ x: -20, opacity: 0 }}
+                animate={{
+                  x: 0,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.5,
+                  },
+                }}
+                exit={{ x: 20, opacity: 0 }}
+              >
+                <Shipping
+                  fetchSubdivisions={fetchSubdivisions}
+                  countries={countries}
+                  checkoutId={checkoutId}
+                  subdivisions={subdivisions}
+                  setShippingData={setShippingData}
+                  setShippingValue={setShippingValue}
+                  setCurrentStep={setCurrentStep}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {currentStep == "payment" && (
+              <motion.div
+                initial={{ x: 20, opacity: 0 }}
+                animate={{
+                  x: 0,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.5,
+                  },
+                }}
+                exit={{ x: -20, opacity: 0 }}
+              >
+                {" "}
+                <Payment
+                  shippingData={shippingData}
+                  checkoutToken={checkoutToken}
+                  setCurrentStep={setCurrentStep}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Box>
-        <Box
-          border="1px solid"
-          borderColor="gray.200"
-          height="100%"
-          padding={5}
-          borderTop="5px solid "
-          borderTopColor="teal.600"
-        >
-          <Heading fontWeight="bold">Order Summary</Heading>
-          <Divider my={3} />
-
-          <VStack spacing={3} justifyContent="space-between" width="100%">
-            {line_items?.map((product) => {
-              return (
-                <Flex
-                  key={product.id}
-                  width="100%"
-                  fontWeight="normal"
-                  fontSize="md"
-                  justifyContent="space-between"
-                >
-                  <chakra.span textColor="gray.600" fontWeight="normal">
-                    {product?.name}
-                  </chakra.span>
-                  <chakra.span>
-                    {product?.price.formatted} x {product?.quantity}
-                  </chakra.span>
-                </Flex>
-              );
-            })}
-
-            <Flex
-              fontWeight="normal"
-              width="100%"
-              fontSize="md"
-              justifyContent="space-between"
-            >
-              <chakra.span textColor="gray.600" fontWeight="normal">
-                Total Items:
-              </chakra.span>
-              <chakra.span>{total_unique_items}</chakra.span>
-            </Flex>
-            <Flex
-              fontWeight="normal"
-              width="100%"
-              fontSize="md"
-              justifyContent="space-between"
-            >
-              <chakra.span textColor="gray.600" fontWeight="normal">
-                Total Amount:
-              </chakra.span>
-              <chakra.span>{subtotal?.formatted_with_symbol}</chakra.span>
-            </Flex>
-          </VStack>
-          <Link href="/checkout" passHref>
-            <Button mt={5} colorScheme="teal" rounded="none" width="full">
-              Pay Now
-            </Button>
-          </Link>
-        </Box>
+        {currentStep == "shipping" && (
+          <Box
+            border="1px solid"
+            borderColor="gray.200"
+            height="100%"
+            padding={5}
+            borderTop="5px solid "
+            borderTopColor="teal.600"
+          >
+            <Heading fontWeight="bold">Order Summary</Heading>
+            <Divider my={3} />
+            <OrderTotal />
+          </Box>
+        )}
       </Flex>
 
       {/*  */}

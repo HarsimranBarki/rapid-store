@@ -53,7 +53,7 @@ export const CheckoutProvider = ({ children }) => {
       const payload = await commerce.checkout.generateToken(cartId, {
         type: "cart",
       });
-      console.log(payload);
+
       dispatch({ type: SET_CHECKOUT, payload });
     } catch (err) {
       // noop
@@ -73,6 +73,18 @@ export const CheckoutProvider = ({ children }) => {
     } catch (err) {
       // noop
     }
+  };
+
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+    try {
+      const incomingOrder = await commerce.checkout.capture(
+        checkoutTokenId,
+        newOrder
+      );
+      console.log(incomingOrder);
+
+      reset;
+    } catch (error) {}
   };
 
   const setCurrentStep = (step) =>
@@ -107,6 +119,7 @@ export const CheckoutProvider = ({ children }) => {
         capture,
         setProcessing,
         setError,
+        handleCaptureCheckout,
         reset,
       }}
     >

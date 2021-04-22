@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { motion } from "framer-motion";
 import Product from "./Product/Product";
+import { v4 as uuidv4 } from "uuid";
 
 function RelatedProducts({ products }) {
   if (!products || products.length === 0) return null;
@@ -23,7 +24,7 @@ function RelatedProducts({ products }) {
           {products.map((product) => (
             <Product
               id={product.id}
-              key={product.key}
+              key={uuidv4()}
               name={product.name}
               price={product.price.formatted_with_symbol}
               image={product.media.source}

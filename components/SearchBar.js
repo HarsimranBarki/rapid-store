@@ -3,12 +3,6 @@ import { Select } from "@chakra-ui/select";
 import React from "react";
 
 export const SearchBar = ({ categories }) => {
-  console.log(categories);
-
-  categories.map((cat) => {
-    console.log(cat);
-  });
-
   return (
     <Box width="80vw" margin="auto">
       <Flex
