@@ -11,7 +11,7 @@ function Hero() {
       <Flex
         height="md"
         alignItems="center"
-        maxW="container.xl"
+        maxW="80vw"
         m="auto"
         justifyContent="space-between"
       >

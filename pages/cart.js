@@ -29,7 +29,7 @@ function cart() {
   }
   if (isEmpty) {
     return (
-      <Container maxW="container.xl" py={10}>
+      <Container maxW="80vw" py={10}>
         <Heading>Your Cart Is Empty</Heading>
         <Link href="/" passHref>
           <Button rounded="none" variant="solid" colorScheme="teal" mt={5}>
@@ -47,7 +47,7 @@ function cart() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <Container maxW="container.xl" py={10}>
+      <Container maxW="80vw" py={10}>
         <Flex justifyContent="space-between" alignItems="start">
           <Box>
             <Heading>Your Cart</Heading>
@@ -163,9 +163,11 @@ function cart() {
                 <chakra.span>{subtotal.formatted_with_symbol}</chakra.span>
               </Flex>
             </VStack>
-            <Button mt={5} colorScheme="teal" rounded="none" width="full">
-              Checkout
-            </Button>
+            <Link href="/checkout" passHref>
+              <Button mt={5} colorScheme="teal" rounded="none" width="full">
+                Checkout
+              </Button>
+            </Link>
           </Box>
         </Flex>
       </Container>

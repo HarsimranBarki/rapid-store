@@ -24,7 +24,7 @@ function Products({ merchant, categories, products }) {
   const MotionFlex = motion(Flex);
   return (
     <Box>
-      <Box maxW="container.xl" margin="auto">
+      <Box maxW="80vw" margin="auto">
         <MotionFlex
           gridGap={5}
           py={10}

@@ -17,7 +17,7 @@ function RelatedProducts({ products }) {
       }}
       exit={{ opacity: 0, y: -50 }}
     >
-      <Box maxW="container.xl" margin="auto">
+      <Box maxW="80vw" margin="auto">
         <Text fontSize="3xl">Similar Products</Text>
         <Flex gridGap={5} py={10} justifyContent="flex-start">
           {products.map((product) => (

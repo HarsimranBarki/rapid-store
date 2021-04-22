@@ -118,7 +118,7 @@ function Product({ product }) {
       <Head>
         <title>{product.name}</title>
       </Head>
-      <Box py={10} bg="white" width="container.xl" margin="auto">
+      <Box py={10} bg="white" width="80vw" margin="auto">
         <Flex gridGap={10} justifyContent="center" py={10} width="100%">
           <motion.div
             initial={{ opacity: 0, x: -50 }}

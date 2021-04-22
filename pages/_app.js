@@ -56,23 +56,24 @@ const GlobalStyle = ({ children }) => {
 
 function App({ Component, pageProps }) {
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      <ColorModeProvider
-        options={{
-          useSystemColorMode: true,
-        }}
-      >
-        <CartProvider>
-          <CheckoutProvider>
-            <GlobalStyle />
-            <AnimatePresence exitBeforeEnter>
+    <AnimatePresence exitBeforeEnter>
+      <ChakraProvider resetCSS theme={theme}>
+        <ColorModeProvider
+          options={{
+            useSystemColorMode: true,
+          }}
+        >
+          <CartProvider>
+            <CheckoutProvider>
+              <GlobalStyle />
+
               <NavBar />
               <Component {...pageProps} />
-            </AnimatePresence>
-          </CheckoutProvider>
-        </CartProvider>
-      </ColorModeProvider>
-    </ChakraProvider>
+            </CheckoutProvider>
+          </CartProvider>
+        </ColorModeProvider>
+      </ChakraProvider>
+    </AnimatePresence>
   );
 }
 

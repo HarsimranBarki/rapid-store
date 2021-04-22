@@ -10,13 +10,14 @@ function NavBar() {
   return (
     <>
       <Box
-        bg="white"
+        bg="black"
+        textColor="white"
         position="fixed"
         width="full"
         zIndex={10}
         boxShadow="base"
       >
-        <Container maxW="container.xl">
+        <Container maxW="80vw">
           <Flex py="4" justifyContent="space-between" alignItems="center">
             <Box>
               <HStack spacing={5}>

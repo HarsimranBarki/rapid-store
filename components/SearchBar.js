@@ -10,7 +10,7 @@ export const SearchBar = ({ categories }) => {
   });
 
   return (
-    <Box width="container.xl" margin="auto">
+    <Box width="80vw" margin="auto">
       <Flex
         padding={3}
         border="1px solid"
