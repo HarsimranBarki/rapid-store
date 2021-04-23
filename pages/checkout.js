@@ -58,12 +58,10 @@ function checkout() {
 
   const fetchSubdivisions = async (countryCode) => {
     try {
-      const { subdivisions } = await commerce.services.localeListSubdivisions(
-        countryCode
-      );
-      console.log(subdivisions);
-      let res = Object.entries(subdivisions).map(reducer);
-      setSubdivisions(res);
+      const res = await commerce.services.localeListSubdivisions(countryCode);
+      console.log(res);
+      let lol = Object.entries(res.subdivisions).map(reducer);
+      setSubdivisions(res.html);
     } catch (err) {
       // noop
     }

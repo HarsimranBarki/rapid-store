@@ -58,7 +58,7 @@ function Payment({ checkoutToken, setCurrentStep, shippingData }) {
           name: shippingData.name,
           street: shippingData.address,
           town_city: shippingData.city,
-          county_state: "US-CA",
+          county_state: shippingData.shippingDivision,
           postal_zip_code: shippingData.zip,
           country: shippingData.country,
         },
@@ -68,7 +68,7 @@ function Payment({ checkoutToken, setCurrentStep, shippingData }) {
         //   town_city: shippingData.city,
         //   county_state: shippingData.shippingDivision,
         //   postal_zip_code: shippingData.zip,
-        //
+        //   country: shippingData.country,
         // },
         fullfillment: { shippingMethod: "Domestic" },
         payment: {

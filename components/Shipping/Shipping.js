@@ -3,6 +3,7 @@ import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { HStack, VStack } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
+import HTMLReactParser from "html-react-parser";
 import React from "react";
 
 import { useForm } from "react-hook-form";
@@ -110,13 +111,7 @@ function Shipping({
             rounded="none"
             {...register("shippingDivision", { required: true })}
           >
-            {subdivisions?.map((data, idx) => {
-              return (
-                <option key={idx} value={data.value}>
-                  {data.label}
-                </option>
-              );
-            })}
+            {HTMLReactParser(subdivisions)}
           </Select>
         </FormControl>
       </HStack>
