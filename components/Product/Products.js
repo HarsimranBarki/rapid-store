@@ -5,6 +5,7 @@ import Product from "./Product";
 import { v4 as uuidv4 } from "uuid";
 
 function Products({ merchant, categories, products }) {
+ 
   const easing = [0.6, -0.05, 0.01, 0.99];
   const container = {
     hidden: { y: -10 },
@@ -26,7 +27,7 @@ function Products({ merchant, categories, products }) {
   return (
     <Box name="product" key={uuidv4()}>
       <Box maxW="80vw" mx="auto" my={10}>
-        <Heading textAlign="center">Top Sellers</Heading>
+        <Heading textAlign="center" borderBottom='1px solid' borderColor='teal.600'  borderBottomWidth={3} pb={2} w='xs' margin='auto'> Top Sellers</Heading>
         <MotionGrid
           gridGap={5}
           py={10}

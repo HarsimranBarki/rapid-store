@@ -14,7 +14,7 @@ function NavBar() {
         textColor="white"
         position="fixed"
         width="100vw"
-        zIndex={10}
+        zIndex={20}
         boxShadow="base"
       >
         <Box maxW="80vw" margin="auto">

@@ -180,6 +180,7 @@ const MotionBox = motion(Box)
                     <MotionBox
                       rounded="lg"
                       overflow="hidden"
+                      bg='gray.200'
                       position="relative"
                       height="full"
                       width="300px"

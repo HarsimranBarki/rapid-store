@@ -1,29 +1,51 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { chakra } from "@chakra-ui/system";
 import React from "react";
+import heroBg from 'public/hero.jpg'
+import { motion } from "framer-motion";
 
 function Hero() {
+  const MotionText = motion(Text)
+  const MotionHeading = motion(Heading)
   return (
-    <Box bg='teal.50'>
+    <Box   backgroundSize='cover' backgroundPosition='center' style={{
+      backgroundImage: `linear-gradient(rgba(0, 128, 128, 0.3),rgba(0, 128, 128, 0.5)),url(${heroBg})`,
+    }}>
       
       <Flex
-        height="xs"
+        height={['sm', 'md', 'lg']}
         alignItems="center"
         maxW="80vw"
         m="auto"
         justifyContent="center"
+        textColor='white'
         flexWrap='wrap'
       >
         <Box zIndex='10'>
-          <Heading fontSize={['5xl', '6xl', '7xl']} textColor="gray.900" fontWeight="bold" >
+          <MotionHeading textAlign='center' fontSize={['5xl', '6xl', '7xl']} textColor="gray.100" fontWeight="bold"   initial={{ opacity: 0, y: -50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.25,
+              },
+            }}>
             Rapid Store
-          </Heading>
-          <Text mt={2} textColor="gray.800">
+          </MotionHeading>
+          <MotionText mt={2} textColor="gray.100"  textAlign='center' initial={{ opacity: 0, y: 50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.25,
+              },
+            }}
+            exit={{ opacity: 0, x: -50 }}>
             Hottest Shoes Collection With {""}
             <chakra.span fontWeight="semiBold">
               Rapid 1 Day Delivery
             </chakra.span>
-          </Text>
+          </MotionText>
          
         </Box>
         
