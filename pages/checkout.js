@@ -95,19 +95,21 @@ function checkout() {
 
   if (!checkoutId) {
     return (
-      <Grid height="sm" placeItems="center">
-        <Spinner />
-      </Grid>
+      <Box minHeight='100vh'> <Grid height="sm" placeItems="center">
+      <Spinner />
+    </Grid></Box>
+     
     );
   }
 
   return (
-    <Box width="80vw" mx="auto" my={10}>
-      <Flex justifyContent="space-between">
-        <Box>
+    <Box  w={['100vw','90vw','85vw']} margin='auto' my={10} minH='100vh' padding={[5,5,0]}>
+      <Flex justifyContent="space-between" flexWrap='wrap' gridGap={10} >
+        <Box width={['full','lg','lg']}>
           <Heading textAlign="left">Checkout</Heading>
-          <Box mt={10} w="xl">
+          <Box mt={10} >
             <Breadcrumb
+
               spacing="15px"
               fontSize="xl"
               separator={<ChevronRightIcon color="gray.500" />}
@@ -147,6 +149,7 @@ function checkout() {
                   },
                 }}
                 exit={{ x: 20, opacity: 0 }}
+                w='100%'
               >
                 <Shipping
                   fetchSubdivisions={fetchSubdivisions}
@@ -208,6 +211,7 @@ function checkout() {
             height="100%"
             padding={5}
             borderTop="5px solid "
+           width={['full','lg','lg']}
             borderTopColor="teal.600"
           >
             <Heading fontWeight="bold">Order Summary</Heading>
@@ -219,7 +223,7 @@ function checkout() {
        
       </Flex>
 
-      {/*  */}
+      
     </Box>
   );
 }

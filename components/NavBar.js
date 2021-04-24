@@ -10,8 +10,8 @@ function NavBar() {
   return (
     <>
       <Box
-        bg='teal.800'
-        textColor="white"
+        bg='white'
+        textColor="teal.800"
         position="fixed"
         width="100vw"
         zIndex={20}

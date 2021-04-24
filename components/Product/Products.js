@@ -26,11 +26,11 @@ function Products({ merchant, categories, products }) {
   const MotionGrid = motion(Grid);
   return (
     <Box name="product" key={uuidv4()}>
-      <Box maxW="80vw" mx="auto" my={10}>
+      <Box maxW="80vw" mx="auto" my={20}>
         <Heading textAlign="center" borderBottom='1px solid' borderColor='teal.600'  borderBottomWidth={3} pb={2} w='xs' margin='auto'> Top Sellers</Heading>
         <MotionGrid
           gridGap={5}
-          py={10}
+          py={12}
           justifyContent="center"
           alignItems="center"
           initial="hidden"

@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { FormControl } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
-import { HStack, VStack } from "@chakra-ui/layout";
+import { HStack, Stack, VStack } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import HTMLReactParser from "html-react-parser";
 import React from "react";
@@ -27,13 +27,14 @@ function Shipping({
     setShippingData(data);
   };
   return (
-    <VStack spacing={5} mt={5} as="form" onSubmit={handleSubmit(onSubmit)}>
-      <HStack spacing={5} width="100%">
-        <FormControl id="name">
+    <VStack spacing={5} mt={5} as="form" onSubmit={handleSubmit(onSubmit)} direction={['column','row']} w='100%' >
+      <Stack spacing={5} width="100%" direction={['column','row']}>
+        <FormControl id="name" w='100%'>
           <Input
             type="text"
             placeholder="First Name"
             rounded="lg"
+            w='100%'
             variant="outline"
             {...register("firstName", { required: true })}
           />
@@ -47,7 +48,7 @@ function Shipping({
             {...register("lastName", { required: true })}
           />
         </FormControl>
-      </HStack>
+      </Stack>
       <FormControl id="name">
         <Input
           type="email"
@@ -66,7 +67,7 @@ function Shipping({
           {...register("address", { required: true })}
         />
       </FormControl>
-      <HStack spacing={5} width="100%">
+      <Stack spacing={5} width="100%" direction={['column','row']}>
         {" "}
         <FormControl id="name">
           <Input
@@ -86,7 +87,7 @@ function Shipping({
             rounded="lg"
           />
         </FormControl>
-      </HStack>
+      </Stack>
 
       <HStack spacing={5} width="100%">
         <FormControl id="name">

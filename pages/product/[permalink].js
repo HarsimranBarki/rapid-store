@@ -113,8 +113,8 @@ const Product = ({ product }) => {
       });
   };
   const MotionGrid = motion(Grid);
-const MotionBox = motion(Box)
-  const MotionText = motion(Text)
+  const MotionBox = motion(Box);
+  const MotionText = motion(Text);
   return (
     <motion.div
       exit={{ opacity: 0 }}
@@ -125,35 +125,49 @@ const MotionBox = motion(Box)
         <title>{product.name}</title>
       </Head>
       <Box py={10} bg="white" width="80vw" margin="auto">
-        <MotionText fontWeight="bold" fontSize="4xl"  initial={{ opacity: 0, y: -50 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: 0.25,
-              },
-            }}
-            exit={{ opacity: 0, x: -50 }}>
+        <MotionText
+          fontWeight="bold"
+          fontSize="4xl"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              delay: 0.25,
+            },
+          }}
+          exit={{ opacity: 0, x: -50 }}
+        >
           {product.name}
         </MotionText>
-        <MotionText  initial={{ opacity: 0, y: -50 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: 0.30,
-              },
-            }}
-            exit={{ opacity: 0, x: -50 }} textColor="gray.500" mt={-1}>
-         <chakra.span  textColor="black">{product.is.sold_out ? <Badge colorScheme='red'>Sold Out</Badge> : <Badge colorScheme='green'>In Stock</Badge>}</chakra.span>
-          
+        <MotionText
+          initial={{ opacity: 0, y: -50 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              delay: 0.3,
+            },
+          }}
+          exit={{ opacity: 0, x: -50 }}
+          textColor="gray.500"
+          mt={-1}
+        >
+          <chakra.span textColor="black">
+            {product.is.sold_out ? (
+              <Badge colorScheme="red">Sold Out</Badge>
+            ) : (
+              <Badge colorScheme="green">In Stock</Badge>
+            )}
+          </chakra.span>
         </MotionText>
         <Flex
           gridGap={10}
           justifyContent="flex-start"
           py={10}
           width="100%"
-          flexWrap="wrap"
+          flexWrap='wrap'
+         
         >
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -166,11 +180,9 @@ const MotionBox = motion(Box)
             }}
             exit={{ opacity: 0, x: -50 }}
           >
-         
             <Swiper
               spaceBetween={10}
               slidesPerView={isTabletOrMobile ? 1 : 3}
-          
               style={{ marginLeft: "0" }}
               effect="fade"
             >
@@ -180,13 +192,13 @@ const MotionBox = motion(Box)
                     <MotionBox
                       rounded="lg"
                       overflow="hidden"
-                      bg='gray.200'
+                      bg="gray.200"
                       position="relative"
                       height="full"
                       width="300px"
                       overflow="hidden"
                       whileHover={{
-                        scale:1.01
+                        scale: 1.01,
                       }}
                     >
                       <Image src={media.url} layout="fill" objectFit="cover" />{" "}
@@ -214,40 +226,45 @@ const MotionBox = motion(Box)
               direction="column"
               justifyContent="space-between"
               height="100%"
+              width='100%'
             >
               <Box>
-                <Text fontWeight="bold" fontSize="4xl" textColor="black">
-                  {product.price.formatted_with_symbol}
-                </Text>
+                
+                <Box>
+                  <Text fontWeight="bold" fontSize="4xl" textColor="black">
+                    {product.price.formatted_with_symbol}
+                  </Text>
 
-                <VariantPicker
-                  variantGroups={variantGroups}
-                  defaultValues={initialVariants}
-                  onChange={handleVariantChange}
-                />
-                <Box
-                  fontWeight="normal"
-                  textColor="gray.800"
-                  fontSize="md"
-                  ml={5}
-                  mt={5}
-                >
-                  {HTMLReactParser(product.description)}
+                  <VariantPicker
+                    variantGroups={variantGroups}
+                    defaultValues={initialVariants}
+                    onChange={handleVariantChange}
+                  />
+                  <Box
+                    fontWeight="normal"
+                    textColor="gray.800"
+                    fontSize="md"
+                    ml={5}
+                    mt={5}
+                  >
+                    {HTMLReactParser(product.description)}
+                  </Box>
                 </Box>
+                <Button
+                  mt={5}
+                  w="xs"
+                  onClick={addToCart}
+                  leftIcon={<FiShoppingBag />}
+                  colorScheme="teal"
+                  isLoading={loading}
+                  textColor="gray.100"
+                  rounded="lg"
+                >
+                  Add to Bag
+                </Button>
+              
               </Box>
-
-              <Button
-                mt={5}
-                w="xs"
-                onClick={addToCart}
-                leftIcon={<FiShoppingBag />}
-                colorScheme="teal"
-                isLoading={loading}
-                textColor="gray.100"
-                rounded="lg"
-              >
-                Add to Bag
-              </Button>
+            
             </Flex>
           </motion.div>
         </Flex>

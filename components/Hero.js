@@ -9,11 +9,11 @@ function Hero() {
   const MotionHeading = motion(Heading)
   return (
     <Box   backgroundSize='cover' backgroundPosition='center' style={{
-      backgroundImage: `linear-gradient(rgba(0, 128, 128, 0.3),rgba(0, 128, 128, 0.5)),url(${heroBg})`,
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(${heroBg})`,
     }}>
       
       <Flex
-        height={['sm', 'md', 'lg']}
+        height={['sm', 'md', 'md']}
         alignItems="center"
         maxW="80vw"
         m="auto"

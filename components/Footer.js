@@ -3,7 +3,7 @@ import React from 'react'
 
 function Footer() {
     return (
-        <Box bg='teal.800' textColor='teal.50' padding={10}>
+        <Box bg='gray.100' textColor='teal.800' padding={10}>
             <HStack justifyContent='center' fontSize='lg' spacing={10} mb={5}>
                     <Text cursor='pointer'>Home</Text>
                     <Text cursor='pointer'>About</Text>

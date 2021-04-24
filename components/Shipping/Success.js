@@ -1,11 +1,22 @@
 import { Button } from "@chakra-ui/button";
 import { ArrowLeftIcon, ChevronLeftIcon } from "@chakra-ui/icons";
-import { Box, Divider, Heading, HStack, Text, VStack } from "@chakra-ui/layout";
+import { Box, Divider, Grid, Heading, HStack, Text, VStack } from "@chakra-ui/layout";
+import { Spinner } from "@chakra-ui/spinner";
 import { chakra } from "@chakra-ui/system";
 import Link from "next/link";
 import React from "react";
 
 function Success({order}) {
+
+  if (!order) {
+    return (
+      <Box minH='100vh'>
+        <Grid placeItems='center' height='md'>
+          <Spinner/>
+        </Grid>
+      </Box>
+    )
+  }
   return (
     <Box mt={5}>
       <VStack width='100%' textAlign='left' justifyContent='flex-start' alignItems='flex-start'> 
