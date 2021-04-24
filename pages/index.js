@@ -3,7 +3,7 @@ import Products from "@/components/Product/Products";
 import React from "react";
 import commerce from "@/lib/commerce";
 import { SearchBar } from "@/components/SearchBar";
-import { Divider } from "@chakra-ui/layout";
+import { Box, Divider } from "@chakra-ui/layout";
 import { motion } from "framer-motion";
 
 export async function getStaticProps() {
@@ -28,13 +28,14 @@ const Index = ({ merchant, categories, products }) => {
       animate={{ opacity: 1 }}
     >
       <Hero />
-      <Divider my={5} />
-      <SearchBar categories={categories} />
+     
+    
       <Products
         merchant={merchant}
         categories={categories}
         products={products}
       />
+       
     </motion.div>
   );
 };

@@ -17,6 +17,7 @@ function VariantPicker({ variantGroups = [], defaultValues = {}, ...props }) {
 
             <Select
               id={group.id}
+              rounded='lg'
               size="sm"
               width="xs"
               mt={2}

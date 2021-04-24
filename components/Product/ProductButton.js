@@ -69,7 +69,7 @@ function ProductButton({ name, id, quantity }) {
         <IconButton
           variant="outline"
           size="xs"
-          rounded="none"
+          rounded="lg"
           colorScheme="gray"
           aria-label="Add Item"
           onClick={() => incrementQuantity()}
@@ -79,7 +79,7 @@ function ProductButton({ name, id, quantity }) {
         <Text>{quantity}</Text>
         <IconButton
           variant="outline"
-          rounded="none"
+          rounded="lg"
           size="xs"
           colorScheme="gray"
           onClick={() => decrementQuantity()}
@@ -89,7 +89,7 @@ function ProductButton({ name, id, quantity }) {
         />
       </HStack>
       <Button
-        rounded="none"
+        rounded="lg"
         leftIcon={<MdDelete />}
         size="sm"
         colorScheme="red"

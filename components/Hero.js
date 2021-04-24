@@ -1,53 +1,34 @@
-import { Button } from "@chakra-ui/button";
-import { Box, Container, Flex, Grid, Heading, Text } from "@chakra-ui/layout";
-import React from "react";
-import HeroImage from "public/hero.svg";
-import Image from "next/image";
+import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { chakra } from "@chakra-ui/system";
+import React from "react";
 
 function Hero() {
   return (
-    <Box bg="white">
+    <Box bg='teal.50'>
+      
       <Flex
-        height="md"
+        height="xs"
         alignItems="center"
         maxW="80vw"
         m="auto"
-        justifyContent="space-between"
+        justifyContent="center"
+        flexWrap='wrap'
       >
-        <Box>
-          <Heading fontSize="7xl" textColor="gray.900" fontWeight="bold">
+        <Box zIndex='10'>
+          <Heading fontSize={['5xl', '6xl', '7xl']} textColor="gray.900" fontWeight="bold" >
             Rapid Store
           </Heading>
           <Text mt={2} textColor="gray.800">
-            Hottest Shpping Trends With {""}
+            Hottest Shoes Collection With {""}
             <chakra.span fontWeight="semiBold">
               Rapid 1 Day Delivery
             </chakra.span>
           </Text>
-          <Button
-            mt={10}
-            variant="solid"
-            bg="black"
-            textColor="white"
-            rounded="0"
-            _hover={{
-              bg: "#444",
-            }}
-          >
-            Shop Now
-          </Button>
+         
         </Box>
-        <Box
-          position="relative"
-          height={500}
-          width={500}
-          rounded="lg"
-          overflow="hidden"
-        >
-          <Image src={HeroImage} layout="fill" objectFit="cover" />
-        </Box>
+        
       </Flex>
+     
     </Box>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import commerce from "@/lib/commerce";
 import Head from "next/head";
-import { Box, Divider, Flex, Heading, Text, toast } from "@chakra-ui/layout";
+import { Box, Divider, Flex, Grid, Heading, Text, toast } from "@chakra-ui/layout";
 import Image from "next/image";
 import HTMLReactParser from "html-react-parser";
 import { Button } from "@chakra-ui/button";
@@ -46,7 +46,7 @@ function Product({ product }) {
   const toast = useToast();
   const { setCart } = useCartDispatch();
   const [loading, setLoading] = useState(false);
-
+  console.log(product)
   const {
     variant_groups: variantGroups,
     assets,
@@ -108,7 +108,7 @@ function Product({ product }) {
         });
       });
   };
-
+const MotionGrid = motion(Grid)
   return (
     <motion.div
       exit={{ opacity: 0 }}
@@ -120,25 +120,35 @@ function Product({ product }) {
       </Head>
       <Box py={10} bg="white" width="80vw" margin="auto">
         <Flex gridGap={10} justifyContent="center" py={10} width="100%">
-          <motion.div
+        
+          <MotionGrid
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
+            gridGap={2}
+            height='500px'
             style={{ width: "100%" }}
+            width='100%' gridTemplateColumns='repeat(2,400px)'
           >
-            <Box
-              position="relative"
-              height="full"
-              width="full"
-              overflow="hidden"
-            >
-              <Image
-                src={product.media.source}
+          
+              {product.assets.map((media) => {
+                return  ( <Box
+                rounded='lg'
+                overflow='hidden'
+                position="relative"
+                height="full"
+                width="400px"
+                overflow="hidden"
+              > <Image
+                src={media.url}
                 layout="fill"
                 objectFit="cover"
-              />
-            </Box>
-          </motion.div>
+              /> </Box>)
+              })}
+             
+           
+          </MotionGrid>
+         
 
           <motion.div
             className="py-6 md:py-12 sticky top-0"
@@ -166,13 +176,13 @@ function Product({ product }) {
                   Avalaibility:{" "}
                   <chakra.span textColor="black">In Stock</chakra.span>
                 </Text>
-                <Divider my={3} />
+                <Divider my={3} w='xs' />
 
                 <Text fontWeight="bold" fontSize="2xl" textColor="black">
                   {product.price.formatted_with_symbol}
                 </Text>
 
-                <Divider my={3} />
+                <Divider my={3} w='xs'/>
                 <VariantPicker
                   variantGroups={variantGroups}
                   defaultValues={initialVariants}
@@ -194,13 +204,11 @@ function Product({ product }) {
                 w="xs"
                 onClick={addToCart}
                 leftIcon={<FiShoppingBag />}
-                bg="black"
+               colorScheme='teal'
                 isLoading={loading}
                 textColor="gray.100"
-                rounded="0"
-                _hover={{
-                  bg: "#444",
-                }}
+                rounded="lg"
+              
               >
                 Add to Bag
               </Button>

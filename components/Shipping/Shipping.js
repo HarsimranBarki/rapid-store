@@ -33,7 +33,7 @@ function Shipping({
           <Input
             type="text"
             placeholder="First Name"
-            rounded="none"
+            rounded="lg"
             variant="outline"
             {...register("firstName", { required: true })}
           />
@@ -42,7 +42,7 @@ function Shipping({
           <Input
             type="text"
             placeholder="Last Name"
-            rounded="none"
+            rounded="lg"
             variant="outline"
             {...register("lastName", { required: true })}
           />
@@ -52,7 +52,7 @@ function Shipping({
         <Input
           type="email"
           placeholder="Email"
-          rounded="none"
+          rounded="lg"
           variant="outline"
           {...register("email", { required: true })}
         />
@@ -61,7 +61,7 @@ function Shipping({
         <Input
           type="text"
           placeholder="Address"
-          rounded="none"
+          rounded="lg"
           variant="outline"
           {...register("address", { required: true })}
         />
@@ -74,7 +74,7 @@ function Shipping({
             type="text"
             placeholder="City"
             {...register("city", { required: true })}
-            rounded="none"
+            rounded="lg"
           />
         </FormControl>
         <FormControl id="zip">
@@ -83,7 +83,7 @@ function Shipping({
             type="text"
             placeholder="Zip"
             {...register("zip", { required: true })}
-            rounded="none"
+            rounded="lg"
           />
         </FormControl>
       </HStack>
@@ -93,7 +93,7 @@ function Shipping({
           <Select
             variant="outline"
             {...register("shippingCountry", { required: true })}
-            rounded="none"
+            rounded="lg"
             onChange={(e) => setShippingValue(checkoutId, e.target.value)}
           >
             {countries?.map((data, index) => {
@@ -108,7 +108,7 @@ function Shipping({
         <FormControl id="name">
           <Select
             variant="outline"
-            rounded="none"
+            rounded="lg"
             {...register("shippingDivision", { required: true })}
           >
             {HTMLReactParser(subdivisions)}
@@ -120,7 +120,7 @@ function Shipping({
         type="submit"
         mt={5}
         colorScheme="teal"
-        rounded="none"
+        rounded="lg"
       >
         Pay Now
       </Button>

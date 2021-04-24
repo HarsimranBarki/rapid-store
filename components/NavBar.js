@@ -10,7 +10,7 @@ function NavBar() {
   return (
     <>
       <Box
-        bg="black"
+        bg='teal.800'
         textColor="white"
         position="fixed"
         width="full"
@@ -20,19 +20,12 @@ function NavBar() {
         <Box maxW="80vw" margin="auto">
           <Flex py="4" justifyContent="space-between" alignItems="center">
             <Box>
-              <HStack spacing={5}>
+              <HStack spacing={5} fontWeight='bold'>
                 <Link href="/">
-                  <a>Home</a>
+                  <a>Rapid Store</a>
                 </Link>
-                <Link href="/cart">
-                  <a>Shop</a>
-                </Link>
-                <Link href="/">
-                  <a>Contact</a>
-                </Link>
-                <Link href="/">
-                  <a>About</a>
-                </Link>
+               
+                
               </HStack>
             </Box>
             <Link href="/cart" passHref>

@@ -17,7 +17,7 @@ export const SearchBar = ({ categories }) => {
           <Text fontWeight="light" fontSize="xl">
             Brand
           </Text>
-          <Select w="sm" variant="flushed" rounded="none">
+          <Select w="sm" variant="flushed" rounded="lg">
             {categories.map((cat) => {
               return <option>{cat.name}</option>;
             })}
@@ -27,7 +27,7 @@ export const SearchBar = ({ categories }) => {
           <Text fontWeight="light" fontSize="xl">
             Price
           </Text>
-          <Select w="sm" variant="flushed" rounded="none">
+          <Select w="sm" variant="flushed" rounded="lg">
             {categories.map((cat) => {
               return <option>{cat.name}</option>;
             })}
@@ -37,7 +37,7 @@ export const SearchBar = ({ categories }) => {
           <Text fontWeight="light" fontSize="xl">
             Filter
           </Text>
-          <Select w="sm" variant="flushed" rounded="none">
+          <Select w="sm" variant="flushed" rounded="lg">
             {categories.map((cat) => {
               return <option>{cat.name}</option>;
             })}

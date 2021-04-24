@@ -32,7 +32,7 @@ function cart() {
       <Container maxW="80vw" py={10}>
         <Heading>Your Cart Is Empty</Heading>
         <Link href="/" passHref>
-          <Button rounded="none" variant="solid" colorScheme="teal" mt={5}>
+          <Button rounded="lg" variant="solid" colorScheme="teal" mt={5}>
             GoHome
           </Button>
         </Link>
@@ -164,7 +164,7 @@ function cart() {
               </Flex>
             </VStack>
             <Link href="/checkout" passHref>
-              <Button mt={5} colorScheme="teal" rounded="none" width="full">
+              <Button mt={5} colorScheme="teal" rounded="lg" width="full">
                 Checkout
               </Button>
             </Link>

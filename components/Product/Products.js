@@ -1,4 +1,4 @@
-import { Box, Container, Flex } from "@chakra-ui/layout";
+import { Box, Container, Flex, Grid, Heading } from "@chakra-ui/layout";
 import { motion } from "framer-motion";
 import React from "react";
 import Product from "./Product";
@@ -22,15 +22,19 @@ function Products({ merchant, categories, products }) {
   };
 
   const MotionFlex = motion(Flex);
+  const MotionGrid = motion(Grid)
   return (
-    <Box>
-      <Box maxW="80vw" margin="auto">
-        <MotionFlex
+    <Box name='product'>
+      <Box maxW="80vw" mx="auto" my={10}>
+        <Heading textAlign='center'>Top Sellers</Heading>
+        <MotionGrid
           gridGap={5}
           py={10}
-          flexWrap="wrap"
+        justifyContent='center'
+          alignItems='center'
           initial="hidden"
           animate="show"
+          gridTemplateColumns=' repeat(auto-fit, minmax(300px, 300px))'
           width="100%"
           variants={container}
         >
@@ -49,7 +53,7 @@ function Products({ merchant, categories, products }) {
               </motion.div>
             );
           })}
-        </MotionFlex>
+        </MotionGrid>
       </Box>
     </Box>
   );

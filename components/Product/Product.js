@@ -49,6 +49,8 @@ function Product({ id, name, description, price, image, permalink }) {
     <Link href={`/product/${permalink}`}>
       <MotionBox
         key={id}
+        rounded='lg'
+        overflow='hidden'
         border="1px solid "
         borderColor="gray.200"
         initial={{
@@ -68,16 +70,19 @@ function Product({ id, name, description, price, image, permalink }) {
         w={300}
         justifyContent="space-between"
       >
-        <Box overflow="hidden" position="relative" height={300} width="full">
+        <Box overflow="hidden" position="relative" height={300} width="full" >
           <Image src={image} layout="fill" objectFit="cover" />
         </Box>
 
-        <Box bg="black" textColor="white" py={3} textAlign="center">
+        <Box bg="teal.600" transition='ease-in-out'  _hover={{
+              bg:'teal.600'
+            }} textColor="white" py={3} textAlign="center">
           <Text
             fontWeight="semibold"
-            textColor="gray.400"
+            textColor="gray.300"
             textTransform="uppercase"
             fontSize="md"
+           
           >
             {name}
           </Text>

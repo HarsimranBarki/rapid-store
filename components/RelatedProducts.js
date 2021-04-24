@@ -20,7 +20,7 @@ function RelatedProducts({ products }) {
     >
       <Box maxW="80vw" margin="auto">
         <Text fontSize="3xl">Similar Products</Text>
-        <Flex gridGap={5} py={10} justifyContent="flex-start">
+        <Flex gridGap={5} py={10} justifyContent="flex-start" flexWrap='wrap'>
           {products.map((product) => (
             <Product
               id={product.id}

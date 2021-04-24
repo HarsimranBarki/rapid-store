@@ -103,13 +103,13 @@ function Payment({ checkoutToken, setCurrentStep, shippingData }) {
                 <Button
                   colorScheme="gray"
                   leftIcon={<ArrowBackIcon />}
-                  rounded="none"
+                  rounded="lg"
                   onClick={() => setCurrentStep("shipping")}
                 >
                   Back
                 </Button>
                 <Button
-                  rounded="none"
+                  rounded="lg"
                   variant="solid"
                   type="submit"
                   colorScheme="teal"
