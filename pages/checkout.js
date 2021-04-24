@@ -1,41 +1,31 @@
+import OrderTotal from "@/components/Shipping/OrderTotal";
+import Payment from "@/components/Shipping/Payment";
+import Shipping from "@/components/Shipping/Shipping";
+import Success from "@/components/Shipping/Success";
+import { useCartDispatch, useCartState } from "@/context/cart";
+import commerce from "@/lib/commerce";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
+  BreadcrumbLink
 } from "@chakra-ui/breadcrumb";
-import { FormControl, FormLabel } from "@chakra-ui/form-control";
-import { ArrowForwardIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Input } from "@chakra-ui/input";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
   Divider,
   Flex,
   Grid,
-  Heading,
-  HStack,
-  Text,
-  VStack,
+  Heading
 } from "@chakra-ui/layout";
-import { Select } from "@chakra-ui/select";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import React, { useEffect, useState } from "react";
-import commerce from "@/lib/commerce";
-import { useCheckoutDispatch, useCheckoutState } from "@/context/checkout";
-import { useCartDispatch, useCartState } from "@/context/cart";
-import { chakra } from "@chakra-ui/system";
-import { Button } from "@chakra-ui/button";
-import Link from "next/link";
-import Shipping from "@/components/Shipping/Shipping";
 import { Spinner } from "@chakra-ui/spinner";
-import { useForm } from "react-hook-form";
-import Payment from "@/components/Shipping/Payment";
 import { AnimatePresence, motion } from "framer-motion";
-import OrderTotal from "@/components/Shipping/OrderTotal";
-import Success from "@/components/Shipping/Success";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+
 
 function checkout() {
   const [countries, setCountries] = useState();
+  const [orderRecipe, setOrderRescipt] = useState();
   const [subdivisions, setSubdivisions] = useState();
   const { line_items, subtotal, total_unique_items } = useCartState();
   const { getCart } = useCartDispatch();
@@ -46,9 +36,6 @@ function checkout() {
   const [shippingData, setShippingData] = useState();
   const router = useRouter();
 
-  if (currentStep == "success") {
-    router.push("/success");
-  }
   useEffect(() => {
     getCartInfo();
     fetchCountries(checkoutId);
@@ -59,7 +46,7 @@ function checkout() {
   const fetchSubdivisions = async (countryCode) => {
     try {
       const res = await commerce.services.localeListSubdivisions(countryCode);
-      console.log(res);
+ 
       let lol = Object.entries(res.subdivisions).map(reducer);
       setSubdivisions(res.html);
     } catch (err) {
@@ -191,7 +178,25 @@ function checkout() {
                   shippingData={shippingData}
                   checkoutToken={checkoutToken}
                   setCurrentStep={setCurrentStep}
+                  setOrderRescipt={setOrderRescipt}
                 />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {currentStep == "success" && (
+              <motion.div
+                initial={{ x: -20, opacity: 0 }}
+                animate={{
+                  x: 0,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.5,
+                  },
+                }}
+                exit={{ x: 20, opacity: 0 }}
+              >
+                <Success order={orderRecipe}/>
               </motion.div>
             )}
           </AnimatePresence>
@@ -210,6 +215,8 @@ function checkout() {
             <OrderTotal />
           </Box>
         )}
+
+       
       </Flex>
 
       {/*  */}

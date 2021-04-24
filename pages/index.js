@@ -1,10 +1,9 @@
 import Hero from "@/components/Hero";
 import Products from "@/components/Product/Products";
-import React from "react";
 import commerce from "@/lib/commerce";
-import { SearchBar } from "@/components/SearchBar";
-import { Box, Divider } from "@chakra-ui/layout";
 import { motion } from "framer-motion";
+import React from "react";
+
 
 export async function getStaticProps() {
   const merchant = await commerce.merchants.about();

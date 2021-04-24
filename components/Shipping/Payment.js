@@ -10,27 +10,28 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import OrderTotal from "./OrderTotal";
 import commerce from "@/lib/commerce";
 
-function Payment({ checkoutToken, setCurrentStep, shippingData }) {
+function Payment({ checkoutToken, setCurrentStep, shippingData,setOrderRescipt }) {
+  const [order,setOrder] = useState()
   const stripePromise = loadStripe(
     `pk_test_51HRLfcGvtASXO12RzHg5XDVUuA04VJnfjXFappeXC5ZsXvnIFrbVsEl9K4qb6uwaZGcRD4Yao3S99bERNQrfJiGf00m4meZfoa`
   );
   const { reset } = useCheckoutDispatch();
-  console.log(shippingData);
+
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
     try {
       const incomingOrder = await commerce.checkout.capture(
         checkoutTokenId,
         newOrder
       );
-      console.log("as", incomingOrder);
+      setOrderRescipt(incomingOrder)
 
       reset;
     } catch (error) {
-      console.log(error);
+      
     }
   };
   const handleSubmit = async (e, elements, stripe) => {
@@ -45,7 +46,7 @@ function Payment({ checkoutToken, setCurrentStep, shippingData }) {
     });
 
     if (error) {
-      console.log(error);
+      
     } else {
       const orderData = {
         line_items: checkoutToken.live.line_items,
@@ -57,19 +58,12 @@ function Payment({ checkoutToken, setCurrentStep, shippingData }) {
         shipping: {
           name: shippingData.name,
           street: shippingData.address,
-          town_city: shippingData.city,
-          county_state: shippingData.shippingDivision,
-          postal_zip_code: shippingData.zip,
-          country: shippingData.country,
+          town_city: 'San Francisco',
+          county_state: 'US-CA',
+          postal_zip_code: '94103',
+          country: 'US'
         },
-        // shipping: {
-        //   name: shippingData.name,
-        //   street: shippingData.address,
-        //   town_city: shippingData.city,
-        //   county_state: shippingData.shippingDivision,
-        //   postal_zip_code: shippingData.zip,
-        //   country: shippingData.country,
-        // },
+       
         fullfillment: { shippingMethod: "Domestic" },
         payment: {
           gateway: "stripe",

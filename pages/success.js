@@ -1,11 +1,12 @@
 import Success from "@/components/Shipping/Success";
+import { Grid } from "@chakra-ui/layout";
 import React from "react";
 
 function success() {
   return (
-    <div>
+    <Grid height='300px' placeItems='center'>
       <Success />
-    </div>
+    </Grid>
   );
 }
 

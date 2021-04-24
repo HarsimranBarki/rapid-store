@@ -2,6 +2,7 @@ import { Box, Container, Flex, Grid, Heading } from "@chakra-ui/layout";
 import { motion } from "framer-motion";
 import React from "react";
 import Product from "./Product";
+import { v4 as uuidv4 } from "uuid";
 
 function Products({ merchant, categories, products }) {
   const easing = [0.6, -0.05, 0.01, 0.99];
@@ -21,35 +22,34 @@ function Products({ merchant, categories, products }) {
     show: { opacity: 1, y: 0 },
   };
 
-  const MotionFlex = motion(Flex);
-  const MotionGrid = motion(Grid)
+  const MotionGrid = motion(Grid);
   return (
-    <Box name='product'>
+    <Box name="product" key={uuidv4()}>
       <Box maxW="80vw" mx="auto" my={10}>
-        <Heading textAlign='center'>Top Sellers</Heading>
+        <Heading textAlign="center">Top Sellers</Heading>
         <MotionGrid
           gridGap={5}
           py={10}
-        justifyContent='center'
-          alignItems='center'
+          justifyContent="center"
+          alignItems="center"
           initial="hidden"
           animate="show"
-          gridTemplateColumns=' repeat(auto-fit, minmax(300px, 300px))'
+          gridTemplateColumns=" repeat(auto-fit, minmax(300px, 300px))"
           width="100%"
           variants={container}
         >
           {products.map((product) => {
             return (
-              <motion.div variants={listItem}>
+              <motion.div variants={listItem} key={uuidv4()}>
                 <Product
                   id={product.id}
-                  key={product.key}
+                  key={uuidv4()}
                   name={product.name}
                   description={product.seo.description}
                   price={product.price.formatted_with_symbol}
                   image={product.assets[0].url}
                   permalink={product.permalink}
-                />
+                />{" "}
               </motion.div>
             );
           })}

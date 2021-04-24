@@ -1,18 +1,21 @@
-import React, { useState } from "react";
-import commerce from "@/lib/commerce";
-import Head from "next/head";
-import { Box, Divider, Flex, Grid, Heading, Text, toast } from "@chakra-ui/layout";
-import Image from "next/image";
-import HTMLReactParser from "html-react-parser";
-import { Button } from "@chakra-ui/button";
-import { motion } from "framer-motion";
-import { FiShoppingBag } from "react-icons/fi";
-import VariantPicker from "@/components/VariantPicker";
 import RelatedProducts from "@/components/RelatedProducts";
-import { useCartDispatch, useCartState } from "@/context/cart";
-import { useToast } from "@chakra-ui/toast";
+import VariantPicker from "@/components/VariantPicker";
+import { useCartDispatch } from "@/context/cart";
+import commerce from "@/lib/commerce";
+import { Button } from "@chakra-ui/button";
+import { Badge, Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import { chakra } from "@chakra-ui/system";
-import ProductButton from "@/components/Product/ProductButton";
+import { useToast } from "@chakra-ui/toast";
+import { motion } from "framer-motion";
+import HTMLReactParser from "html-react-parser";
+import Head from "next/head";
+import Image from "next/image";
+import React, { useState } from "react";
+import { FiShoppingBag } from "react-icons/fi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import "swiper/swiper-bundle.css";
+import { useMediaQuery } from "react-responsive";
 
 export async function getStaticProps({ params }) {
   const { permalink } = params;
@@ -42,11 +45,12 @@ export async function getStaticPaths() {
   };
 }
 
-function Product({ product }) {
+const Product = ({ product }) => {
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const toast = useToast();
   const { setCart } = useCartDispatch();
   const [loading, setLoading] = useState(false);
-  console.log(product)
+
   const {
     variant_groups: variantGroups,
     assets,
@@ -68,7 +72,7 @@ function Product({ product }) {
   const [selectedVariants, setSelectedVariants] = React.useState(
     initialVariants
   );
-
+  SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   React.useEffect(() => {
     setSelectedVariants(initialVariants);
   }, [product.permalink]);
@@ -108,7 +112,9 @@ function Product({ product }) {
         });
       });
   };
-const MotionGrid = motion(Grid)
+  const MotionGrid = motion(Grid);
+const MotionBox = motion(Box)
+  const MotionText = motion(Text)
   return (
     <motion.div
       exit={{ opacity: 0 }}
@@ -119,36 +125,76 @@ const MotionGrid = motion(Grid)
         <title>{product.name}</title>
       </Head>
       <Box py={10} bg="white" width="80vw" margin="auto">
-        <Flex gridGap={10} justifyContent="center" py={10} width="100%">
-        
-          <MotionGrid
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 50 }}
-            gridGap={2}
-            height='500px'
-            style={{ width: "100%" }}
-            width='100%' gridTemplateColumns='repeat(2,400px)'
-          >
+        <MotionText fontWeight="bold" fontSize="4xl"  initial={{ opacity: 0, y: -50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.25,
+              },
+            }}
+            exit={{ opacity: 0, x: -50 }}>
+          {product.name}
+        </MotionText>
+        <MotionText  initial={{ opacity: 0, y: -50 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.30,
+              },
+            }}
+            exit={{ opacity: 0, x: -50 }} textColor="gray.500" mt={-1}>
+         <chakra.span  textColor="black">{product.is.sold_out ? <Badge colorScheme='red'>Sold Out</Badge> : <Badge colorScheme='green'>In Stock</Badge>}</chakra.span>
           
-              {product.assets.map((media) => {
-                return  ( <Box
-                rounded='lg'
-                overflow='hidden'
-                position="relative"
-                height="full"
-                width="400px"
-                overflow="hidden"
-              > <Image
-                src={media.url}
-                layout="fill"
-                objectFit="cover"
-              /> </Box>)
-              })}
-             
-           
-          </MotionGrid>
+        </MotionText>
+        <Flex
+          gridGap={10}
+          justifyContent="flex-start"
+          py={10}
+          width="100%"
+          flexWrap="wrap"
+        >
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: {
+                delay: 0.25,
+              },
+            }}
+            exit={{ opacity: 0, x: -50 }}
+          >
          
+            <Swiper
+              spaceBetween={10}
+              slidesPerView={isTabletOrMobile ? 1 : 3}
+          
+              style={{ marginLeft: "0" }}
+              effect="fade"
+            >
+              {product.assets.map((media) => {
+                return (
+                  <SwiperSlide style={{ height: "300px", width: "300px" }}>
+                    <MotionBox
+                      rounded="lg"
+                      overflow="hidden"
+                      position="relative"
+                      height="full"
+                      width="300px"
+                      overflow="hidden"
+                      whileHover={{
+                        scale:1.01
+                      }}
+                    >
+                      <Image src={media.url} layout="fill" objectFit="cover" />{" "}
+                    </MotionBox>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </motion.div>
 
           <motion.div
             className="py-6 md:py-12 sticky top-0"
@@ -169,26 +215,16 @@ const MotionGrid = motion(Grid)
               height="100%"
             >
               <Box>
-                <Text fontWeight="bold" fontSize="4xl">
-                  {product.name}
-                </Text>
-                <Text textColor="gray.500" mt={-1}>
-                  Avalaibility:{" "}
-                  <chakra.span textColor="black">In Stock</chakra.span>
-                </Text>
-                <Divider my={3} w='xs' />
-
-                <Text fontWeight="bold" fontSize="2xl" textColor="black">
+                <Text fontWeight="bold" fontSize="4xl" textColor="black">
                   {product.price.formatted_with_symbol}
                 </Text>
 
-                <Divider my={3} w='xs'/>
                 <VariantPicker
                   variantGroups={variantGroups}
                   defaultValues={initialVariants}
                   onChange={handleVariantChange}
                 />
-                <Text
+                <Box
                   fontWeight="normal"
                   textColor="gray.800"
                   fontSize="md"
@@ -196,7 +232,7 @@ const MotionGrid = motion(Grid)
                   mt={5}
                 >
                   {HTMLReactParser(product.description)}
-                </Text>
+                </Box>
               </Box>
 
               <Button
@@ -204,11 +240,10 @@ const MotionGrid = motion(Grid)
                 w="xs"
                 onClick={addToCart}
                 leftIcon={<FiShoppingBag />}
-               colorScheme='teal'
+                colorScheme="teal"
                 isLoading={loading}
                 textColor="gray.100"
                 rounded="lg"
-              
               >
                 Add to Bag
               </Button>
@@ -222,6 +257,6 @@ const MotionGrid = motion(Grid)
       </Box>
     </motion.div>
   );
-}
+};
 
 export default Product;

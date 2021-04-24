@@ -1,15 +1,14 @@
-import { Box, Flex, Text } from "@chakra-ui/layout";
-import React, { useState } from "react";
-import Image from "next/image";
-import parse from "html-react-parser";
-import Link from "next/link";
-import { Button, IconButton } from "@chakra-ui/button";
-
-import commerce from "@/lib/commerce";
 import { useCartDispatch } from "@/context/cart";
+import commerce from "@/lib/commerce";
+import { Box, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
-import { AddIcon } from "@chakra-ui/icons";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+
+import { v4 as uuidv4 } from "uuid";
+
 
 function Product({ id, name, description, price, image, permalink }) {
   const { setCart } = useCartDispatch();
@@ -46,6 +45,7 @@ function Product({ id, name, description, price, image, permalink }) {
       });
   };
   return (
+    <React.Fragment key={uuidv4()}>
     <Link href={`/product/${permalink}`}>
       <MotionBox
         key={id}
@@ -93,6 +93,7 @@ function Product({ id, name, description, price, image, permalink }) {
         </Box>
       </MotionBox>
     </Link>
+    </React.Fragment>
   );
 }
 

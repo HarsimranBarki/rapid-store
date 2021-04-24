@@ -57,7 +57,7 @@ export const CheckoutProvider = ({ children }) => {
       dispatch({ type: SET_CHECKOUT, payload });
     } catch (err) {
       // noop
-      console.log(err);
+      
     }
   };
 
@@ -81,7 +81,7 @@ export const CheckoutProvider = ({ children }) => {
         checkoutTokenId,
         newOrder
       );
-      console.log(incomingOrder);
+      
 
       reset;
     } catch (error) {}

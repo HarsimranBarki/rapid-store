@@ -49,7 +49,7 @@ function cart() {
     >
       <Box maxW="80vw" py={10} margin="auto">
         <Flex justifyContent="space-between" alignItems="start">
-          <Box>
+          <Box rounded='lg'>
             <Heading>Your Cart</Heading>
             <Flex gridGap={5} py={10} justifyContent="flex-start">
               {" "}
@@ -58,9 +58,11 @@ function cart() {
                   <MotionFlex
                     key={product.id}
                     border="1px solid "
+                    rounded='lg'
                     whileHover={{
                       scale: 1.02,
                     }}
+                    boxShadow='base'
                     borderColor="gray.200"
                     _hover={{
                       boxShadow: "lg",

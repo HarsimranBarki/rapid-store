@@ -13,7 +13,7 @@ function NavBar() {
         bg='teal.800'
         textColor="white"
         position="fixed"
-        width="full"
+        width="100vw"
         zIndex={10}
         boxShadow="base"
       >
